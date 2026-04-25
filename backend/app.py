@@ -3,6 +3,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from google import genai
+from google.genai import types
+from backend.prompts import TEXT_PROMPT_DEFAULT, IMAGE_PROMPT_TEMPLATE
 
 
 def cargar_configuracion():
@@ -12,13 +14,7 @@ def cargar_configuracion():
 
     api_key = os.getenv("GEMINI_API_KEY", "").strip()
     model_name = os.getenv("GEMINI_MODEL", "gemini-1.5-flash").strip()
-    base_prompt = os.getenv(
-        "GEMINI_SYSTEM_PROMPT",
-        (
-            "Eres un asistente de viajes útil y claro. "
-            "Propón destinos concretos, presupuesto aproximado y recomendaciones prácticas."
-        ),
-    ).strip()
+    base_prompt = TEXT_PROMPT_DEFAULT.strip()
 
     return api_key, model_name, base_prompt
 
@@ -45,31 +41,20 @@ def construir_candidatos_modelo(model_name: str) -> list[str]:
     return resultado
 
 
-def generar_respuesta_chatbot(user_text: str) -> str:
-    """Llama a Gemini con prompt base + texto del usuario."""
-    cleaned_text = user_text.strip()
-    if not cleaned_text:
-        return "No recibí texto del usuario."
-
+def _consultar_gemini(contents) -> str:
+    """Ejecuta llamada a Gemini con fallback de modelos."""
     api_key, model_name, base_prompt = cargar_configuracion()
     if not api_key:
         return "Falta GEMINI_API_KEY en el archivo .env"
 
     client = genai.Client(api_key=api_key)
-
-    final_prompt = (
-        f"{base_prompt}\n\n"
-        f"Texto del usuario:\n{cleaned_text}\n\n"
-        "Responde en español y en formato claro."
-    )
-
     ultimo_error = ""
     hubo_error_cuota = False
     for modelo in construir_candidatos_modelo(model_name):
         try:
             response = client.models.generate_content(
                 model=modelo,
-                contents=final_prompt,
+                contents=contents,
             )
             response_text = getattr(response, "text", None)
             if response_text and response_text.strip():
@@ -94,6 +79,35 @@ def generar_respuesta_chatbot(user_text: str) -> str:
         )
 
     return f"No encontré un modelo Gemini disponible. Último detalle: {ultimo_error}"
+
+
+def generar_respuesta_chatbot(user_text: str) -> str:
+    """Llama a Gemini con prompt base + texto del usuario."""
+    cleaned_text = user_text.strip()
+    if not cleaned_text:
+        return "No recibí texto del usuario."
+
+    _, _, base_prompt = cargar_configuracion()
+    final_prompt = (
+        f"{base_prompt}\n\n"
+        f"Texto del usuario:\n{cleaned_text}\n\n"
+        "Responde en espanol y en formato claro."
+    )
+    return _consultar_gemini(final_prompt)
+
+
+def generar_respuesta_imagen_chatbot(image_bytes: bytes, mime_type: str, user_text: str = "") -> str:
+    """Analiza imagen + contexto y devuelve JSON de keywords de destino."""
+    if not image_bytes:
+        return "No recibi imagen para analizar."
+
+    contexto = user_text.strip() or "No hay texto adicional del usuario."
+    prompt_imagen = IMAGE_PROMPT_TEMPLATE.format(contexto_usuario=contexto)
+    contents = [
+        prompt_imagen,
+        types.Part.from_bytes(data=image_bytes, mime_type=mime_type or "image/jpeg"),
+    ]
+    return _consultar_gemini(contents)
 
 
 if __name__ == "__main__":

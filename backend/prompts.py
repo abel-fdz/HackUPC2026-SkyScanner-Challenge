@@ -9,5 +9,10 @@ TEXT_PROMPT_DEFAULT = (
 
 IMAGE_PROMPT_TEMPLATE = (
     "Eres un asistente experto en viajes. Analiza la imagen y el contexto de usuario. "
-    "Proporciona el nombre de 3 destinos relevantes en el campo keywords. "
+    "Devuelve SOLO un JSON valido (sin markdown ni texto extra) con esta estructura exacta: "
+    '{{"tipo_lugar":[],"clima":[],"ambiente":[],"actividades":[],"presupuesto":[],"temporada":[],"keywords":[]}}. '
+    "Cada campo debe ser una lista de strings con 0 a 5 elementos en espanol. "
+    "Si no puedes inferir algo, deja la lista vacia. "
+    "Incluye nombres de 3 destinos potenciales dentro de keywords. "
+    "Contexto del usuario: {contexto_usuario}"
 )
