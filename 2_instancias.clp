@@ -99,40 +99,40 @@
         (location [loc-queenstown]))
 
     ;;; --- OFFERS ---
-    ([offer1] of Offer
+    ([lisbon-1] of Offer
         (price 850) (duration 5) (Destination [dest-lisbon])
         (priceLevel LOW) (travelTime SHORT))
-    ([offer2] of Offer
+    ([barcelona-1] of Offer
         (price 1200) (duration 7) (Destination [dest-barcelona])
         (priceLevel MEDIUM) (travelTime SHORT))
-    ([offer3] of Offer
+    ([marrakech-1] of Offer
         (price 1650) (duration 8) (Destination [dest-marrakech])
         (priceLevel MEDIUM) (travelTime SHORT))
-    ([offer4] of Offer
+    ([vancouver-1] of Offer
         (price 1900) (duration 10) (Destination [dest-vancouver])
         (priceLevel MEDIUM_HIGH) (travelTime LONG))
-    ([offer5] of Offer
+    ([bangkok-1] of Offer
         (price 2300) (duration 12) (Destination [dest-bangkok])
         (priceLevel HIGH) (travelTime LONG))
-    ([offer6] of Offer
+    ([reykjavik-1] of Offer
         (price 2600) (duration 11) (Destination [dest-reykjavik])
         (priceLevel HIGH) (travelTime LONG))
-    ([offer7] of Offer
+    ([cusco-1] of Offer
         (price 1400) (duration 9) (Destination [dest-cusco])
         (priceLevel MEDIUM) (travelTime LONG))
-    ([offer8] of Offer
+    ([queenstown-1] of Offer
         (price 3000) (duration 14) (Destination [dest-queenstown])
         (priceLevel HIGH) (travelTime LONG))
-    ([offer9] of Offer
+    ([lisbon-2] of Offer
         (price 1100) (duration 6) (Destination [dest-lisbon])
         (priceLevel MEDIUM) (travelTime SHORT))
-    ([offer10] of Offer
+    ([barcelona-2] of Offer
         (price 1750) (duration 8) (Destination [dest-barcelona])
         (priceLevel MEDIUM_HIGH) (travelTime SHORT))
-    ([offer11] of Offer
+    ([marrakech-2] of Offer
         (price 950) (duration 5) (Destination [dest-marrakech])
         (priceLevel LOW) (travelTime SHORT))
-    ([offer12] of Offer
+    ([vancouver-2] of Offer
         (price 2100) (duration 9) (Destination [dest-vancouver])
         (priceLevel HIGH) (travelTime LONG))
 )
