@@ -8,7 +8,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
 
-from backend.app import generar_respuesta_chatbot
+from backend.app import generar_respuesta_chatbot, generar_respuesta_imagen_chatbot
 
 
 # ============================================================================
@@ -201,6 +201,17 @@ def obtener_respuesta_ia(texto_usuario, _config_params=None):
         return respuesta
     except Exception as exc:
         return f"Error inesperado al consultar la IA: {exc}"
+
+
+@st.cache_data(show_spinner="Analizando imagen con IA...")
+def obtener_respuesta_ia_imagen(image_bytes, mime_type, texto_usuario="", _config_params=None):
+    try:
+        respuesta = generar_respuesta_imagen_chatbot(image_bytes, mime_type, texto_usuario)
+        if "429" in respuesta or "cuota disponible" in respuesta.lower():
+            return "Lo siento, la IA esta temporalmente en limite de cuota. Intentalo de nuevo en un minuto."
+        return respuesta
+    except Exception as exc:
+        return f"Error inesperado al analizar la imagen: {exc}"
 
 
 # ============================================================================
@@ -400,11 +411,25 @@ def seccion_modo_imagen():
     if imagen:
         st.image(imagen, caption="Tu imagen de inspiración", use_container_width=True)
 
+    texto_contexto = st.text_area(
+        "Contexto opcional para la IA (qué te inspira de la imagen)",
+        placeholder="Ej: Quiero un destino con este estilo, relajado y no muy caro.",
+        height=100,
+        key="imagen_contexto_texto",
+    )
+
     if st.button("✨ Encontrar mi destino ideal"):
         if not imagen:
             st.warning("Sube una imagen primero.")
         else:
-            st.info("Modo imagen pendiente de integrar en backend. Usa de momento el modo texto.")
+            respuesta_json = obtener_respuesta_ia_imagen(
+                imagen.getvalue(),
+                getattr(imagen, "type", "image/jpeg"),
+                texto_contexto,
+                _config_params={"modo": "imagen"},
+            )
+            st.success("Analisis completado")
+            st.code(respuesta_json, language="json")
 
 def seccion_ia():
     """Maneja la sección de IA con modos libre y detallado."""
