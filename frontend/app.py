@@ -3,11 +3,11 @@ import streamlit.components.v1 as components
 import subprocess
 import sys
 from pathlib import Path
+from datetime import date, timedelta
 
 # --- CONFIGURACIÓN DE LA PÁGINA ---
 st.set_page_config(page_title="SkyScanner Dream Destiny", page_icon="✈️", layout="centered")
 
-# --- FUNCIÓN MODO FIESTA (AVIONES) ---
 def st_airplanes():
     components.html("""
     <script>
@@ -54,44 +54,29 @@ def st_airplanes():
     </script>
     """, height=0)
 
-# --- FUNCIÓN BACKEND ---
 def mi_funcion_provisional(texto):
     backend_script = Path(__file__).parent.parent / "backend" / "proceso.py"
-    
-    # DEBUG: Verifica si el archivo existe de verdad
     if not backend_script.exists():
         st.error(f"Archivo no encontrado en: {backend_script}")
         return
-
     with st.spinner("Procesando..."):
         result = subprocess.run(
             [sys.executable, str(backend_script), texto],
-            capture_output=True,
-            text=True,
-            encoding='utf-8'
+            capture_output=True, text=True, encoding='utf-8'
         )
-
-    # DEBUG: Vamos a ver TODO lo que devolvió el objeto result
-    # st.write(result) # Descomenta esto para ver el objeto completo
-
     if result.returncode == 0:
         st.success("¡Proceso ejecutado!")
-        
-        # Forzamos a ver qué hay, aunque sea espacios en blanco
         if result.stdout:
             st.code(result.stdout, language="text")
         else:
-            st.warning("El script se ejecutó bien, pero la salida (stdout) está vacía. ¿Tiene prints el backend?")
-            
-        # Por si acaso el error se fue a stderr a pesar de tener returncode 0
+            st.warning("stdout vacío.")
         if result.stderr:
-            st.subheader("Aviso en stderr:")
             st.info(result.stderr)
     else:
         st.error(f"Error código {result.returncode}")
         st.code(result.stderr)
 
-# --- ESTILOS PERSONALIZADOS ---
+# --- ESTILOS ---
 st.markdown("""
     <style>
     .stTextArea textarea {
@@ -99,30 +84,154 @@ st.markdown("""
         border: 2px solid #ff4b4b !important;
         padding: 20px !important;
     }
-    .stButton button {
-        border-radius: 20px;
-        width: 100%;
-        font-weight: bold;
+    .stButton button { border-radius: 20px; width: 100%; font-weight: bold; }
+    .destino-card {
+        background-color: #f9f9f9; border-radius: 16px;
+        padding: 16px; text-align: center; border: 1px solid #e0e0e0;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- BARRA LATERAL ---
-with st.sidebar:
-    st.header("Configuración Extra")
-    activar_fiesta = st.toggle("Activar modo fiesta 🥳")
-    if activar_fiesta:
-        st_airplanes()
-        st.caption("Aviones en camino...")
 
-# --- CONTENIDO PRINCIPAL ---
-st.title("¡Hola, Usuario! 👋")
+# --- CABECERA ---
+st.title("✈️ SkyScanner Dream Destiny")
+st.caption("Encuentra el viaje perfecto según tus sueños")
+st.divider()
 
-user_text = st.text_area(
-    label="Introduce tu mensaje aquí:",
-    placeholder="Escribe algo increíble...",
-    height=300
-)
+# --- BUSCADOR DE VUELOS ---
+st.subheader("🔍 Buscar vuelo")
+col_origen, col_destino = st.columns(2)
+AEROPUERTOS = [
+    "Barcelona (BCN)", "Madrid (MAD)", "Londres (LHR)", "París (CDG)",
+    "Roma (FCO)", "Ámsterdam (AMS)", "Berlín (BER)", "Lisboa (LIS)",
+    "Nueva York (JFK)", "Tokio (NRT)", "Dubai (DXB)", "Cancún (CUN)"
+]
+with col_origen:
+    origen = st.selectbox("🛫 Origen", AEROPUERTOS, index=0)
+with col_destino:
+    destino = st.selectbox("🛬 Destino", AEROPUERTOS, index=2)
+col_ida, col_vuelta = st.columns(2)
+with col_ida:
+    fecha_ida = st.date_input("📅 Fecha de ida", value=date.today() + timedelta(days=30))
+with col_vuelta:
+    fecha_vuelta = st.date_input("📅 Fecha de vuelta", value=date.today() + timedelta(days=37))
+col_pasajeros, col_clase = st.columns(2)
+with col_pasajeros:
+    pasajeros = st.number_input("👤 Pasajeros", min_value=1, max_value=9, value=1)
+with col_clase:
+    clase = st.selectbox("💺 Clase", ["Turista", "Business", "Primera clase"])
+if st.button("🔎 Buscar vuelos"):
+    if origen == destino:
+        st.warning("El origen y el destino no pueden ser iguales.")
+    elif fecha_vuelta < fecha_ida:
+        st.warning("La fecha de vuelta no puede ser anterior a la de ida.")
+    else:
+        noches = (fecha_vuelta - fecha_ida).days
+        st.info(f"Buscando vuelos de **{origen}** a **{destino}** · {noches} noches · {pasajeros} pasajero(s) · {clase}")
+        st.toast("Búsqueda en curso...", icon="🔍")
 
-if st.button("Ejecutar proceso"):
-    mi_funcion_provisional(user_text)
+st.divider()
+
+# --- DESTINOS DESTACADOS ---
+st.subheader("🌍 Destinos destacados")
+destinos = [
+    {"emoji": "🗼", "ciudad": "París",     "precio": "desde 189€", "desc": "La ciudad del amor"},
+    {"emoji": "🏖️", "ciudad": "Bali",      "precio": "desde 620€", "desc": "Paraíso tropical"},
+    {"emoji": "🗽", "ciudad": "Nueva York", "precio": "desde 399€", "desc": "La ciudad que nunca duerme"},
+    {"emoji": "🏯", "ciudad": "Tokio",     "precio": "desde 710€", "desc": "Tradición y modernidad"},
+    {"emoji": "🌅", "ciudad": "Santorini", "precio": "desde 240€", "desc": "Vistas al Egeo"},
+    {"emoji": "🎭", "ciudad": "Roma",      "precio": "desde 140€", "desc": "La ciudad eterna"},
+]
+cols = st.columns(3)
+for i, d in enumerate(destinos):
+    with cols[i % 3]:
+        st.markdown(f"""
+        <div class="destino-card">
+            <div style="font-size: 2rem;">{d['emoji']}</div>
+            <strong>{d['ciudad']}</strong><br>
+            <span style="color: #ff4b4b; font-weight: bold;">{d['precio']}</span><br>
+            <small style="color: gray;">{d['desc']}</small>
+        </div>
+        """, unsafe_allow_html=True)
+        st.write("")
+
+st.divider()
+
+# --- SECCIÓN IA: MODO LIBRE / MODO DETALLADO ---
+st.subheader("🤖 Describe tu viaje ideal")
+st.caption("Cuéntanos qué quieres y nuestra IA encontrará el destino perfecto para ti")
+
+# Selector de modo
+if "modo_detallado" not in st.session_state:
+    st.session_state.modo_detallado = False
+
+col_btn1, col_btn2 = st.columns(2)
+with col_btn1:
+    if st.button("✏️ Modo libre", use_container_width=True):
+        st.session_state.modo_detallado = False
+with col_btn2:
+    if st.button("🎛️ Modo detallado", use_container_width=True):
+        st.session_state.modo_detallado = True
+
+st.write("")
+
+# --- MODO LIBRE ---
+if not st.session_state.modo_detallado:
+    user_text = st.text_area(
+        label="¿Cómo imaginas tu viaje perfecto?",
+        placeholder="Ej: Quiero un viaje de 10 días con mi pareja, me gustan las playas tranquilas, la buena comida y no quiero gastar más de 2000€ por persona...",
+        height=200
+    )
+    if st.button("✨ Encontrar mi destino ideal"):
+        if not user_text.strip():
+            st.warning("Cuéntanos algo sobre tu viaje ideal primero.")
+        else:
+            mi_funcion_provisional(user_text)
+
+# --- MODO DETALLADO ---
+else:
+    col1, col2 = st.columns(2)
+
+    with col1:
+        precio_max = st.slider("💶 Precio máximo (€/persona)", 100, 5000, 1500, step=50)
+        duracion = st.slider("🗓️ Duración (días)", 1, 30, 7)
+        temperatura = st.slider("🌡️ Temperatura deseada (°C)", 0, 45, 25)
+        flexibilidad = st.slider("📅 Flexibilidad de fechas (±días)", 0, 30, 3)
+
+    with col2:
+        mes = st.selectbox("📆 Mes de viaje", [
+            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+        ])
+        tipo_grupo = st.selectbox("👥 Tipo de viaje", [
+            "Solo", "En pareja / Romántico", "Familia con niños",
+            "Grupo de amigos", "Viaje de negocios"
+        ])
+        clima = st.selectbox("☁️ Clima preferido", [
+            "Soleado y cálido", "Templado", "Frío / Nieve",
+            "Tropical", "Seco / Desértico", "Sin preferencia"
+        ])
+
+    tipo_destino = st.multiselect(
+        "🗺️ Tipo de destino",
+        ["🏖️ Playa", "🏔️ Montaña", "🏙️ Gran metrópoli", "🏛️ Cultural / Museos",
+         "🎉 Fiesta / Nightlife", "🧗 Aventura / Deporte", "🏰 Histórico"],
+        default=["🏖️ Playa"]
+    )
+
+    if st.button("✨ Encontrar mi destino ideal"):
+        tipos = ", ".join(tipo_destino) if tipo_destino else "Sin preferencia"
+        texto_detallado = f"""
+Precio máximo: {precio_max}€ por persona
+Mes de viaje: {mes}
+Duración: {duracion} días
+Flexibilidad de fechas: ±{flexibilidad} días
+Tipo de viaje: {tipo_grupo}
+Clima preferido: {clima}
+Temperatura deseada: {temperatura}°C
+Tipo de destino: {tipos}
+        """.strip()
+
+        mi_funcion_provisional(texto_detallado)
+
+st.divider()
