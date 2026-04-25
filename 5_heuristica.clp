@@ -19,7 +19,7 @@
 ; Apply optional offers filter created in input module.
 (defrule heuristic::apply-offer-filter-price
     (declare (salience 200))
-    (object (name [offers-filter]) (price ?max&~nil))
+    (object (name [offers-filter]) (price ?max&:(> ?max 0)))
     ?of <- (object (is-a Offer)
                    (name ?name&:(neq ?name [offers-filter]))
                    (Destination ?dest&~[nil])
@@ -30,7 +30,7 @@
 
 (defrule heuristic::apply-offer-filter-duration
     (declare (salience 200))
-    (object (name [offers-filter]) (duration ?dur&~nil))
+    (object (name [offers-filter]) (duration ?dur&:(> ?dur 0)))
     ?of <- (object (is-a Offer)
                    (name ?name&:(neq ?name [offers-filter]))
                    (Destination ?dest&~[nil])

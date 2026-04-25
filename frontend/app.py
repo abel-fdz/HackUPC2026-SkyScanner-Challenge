@@ -12,6 +12,9 @@ from backend.app import (
     generar_respuesta_chatbot,
     generar_respuesta_imagen_chatbot,
     generar_recomendacion_clips_desde_json,
+    generar_explicacion_usuario_desde_clips,
+    extraer_destinos_desde_clips,
+    obtener_live_opciones_destino,
 )
 
 
@@ -268,6 +271,88 @@ def obtener_salida_clips(preferences_json, _config_params=None):
         return f"Error inesperado al ejecutar CLIPS: {exc}"
 
 
+@st.cache_data(show_spinner="Traduciendo recomendaciones a lenguaje natural...")
+def obtener_explicacion_desde_clips(preferences_json, clips_output, _config_params=None):
+    try:
+        return generar_explicacion_usuario_desde_clips(preferences_json, clips_output)
+    except Exception as exc:
+        return f"Error inesperado al generar explicacion: {exc}"
+
+
+@st.cache_data(show_spinner="Consultando vuelos live...")
+def obtener_opciones_live_destino(preferences_json, destination_slug, _config_params=None):
+    try:
+        return obtener_live_opciones_destino(preferences_json, destination_slug)
+    except Exception as exc:
+        return {"error": f"Error consultando opciones live: {exc}"}
+
+
+def render_clips_and_live_block(preferences_json: str, source_tag: str):
+    with st.expander("🧠 CLIPS recommendations", expanded=False):
+        clips_output = obtener_salida_clips(
+            preferences_json,
+            _config_params={"modo": source_tag},
+        )
+        explicacion = obtener_explicacion_desde_clips(
+            preferences_json,
+            clips_output,
+            _config_params={"modo": source_tag},
+        )
+        st.markdown(explicacion)
+        st.caption("Salida tecnica de CLIPS")
+        st.code(clips_output, language="text")
+
+        destinos = extraer_destinos_desde_clips(clips_output)
+        if destinos:
+            st.markdown("### Elige un destino para ver opciones live")
+            cols = st.columns(min(3, len(destinos)))
+            for i, d in enumerate(destinos):
+                col = cols[i % len(cols)]
+                with col:
+                    if st.button(
+                        f"Ver {d['city']} ({d['iata']})",
+                        key=f"btn_dest_{source_tag}_{d['slug']}_{i}",
+                        use_container_width=True,
+                    ):
+                        st.session_state.selected_destination_slug = d["slug"]
+                        st.session_state.selected_preferences_json = preferences_json
+                        st.session_state.selected_source_tag = source_tag
+
+            selected_slug = st.session_state.get("selected_destination_slug")
+            selected_json = st.session_state.get("selected_preferences_json")
+            selected_source = st.session_state.get("selected_source_tag")
+            if selected_slug and selected_json and selected_source == source_tag:
+                live = obtener_opciones_live_destino(
+                    selected_json,
+                    selected_slug,
+                    _config_params={"source": source_tag},
+                )
+                if "error" in live:
+                    st.error(live["error"])
+                else:
+                    destino = live.get("destination", {})
+                    st.subheader(
+                        f"Opciones live para {destino.get('city', selected_slug)} ({destino.get('iata', '-')})"
+                    )
+                    st.caption(
+                        f"Mes: {destino.get('month', '-')}, duración: {destino.get('trip_duration_days', '-')} días"
+                    )
+
+                    st.markdown("#### Top 3 vuelos (mejor opción)")
+                    flights = live.get("flights_top3", [])
+                    if not flights:
+                        st.info("No se encontraron vuelos live para el filtro actual.")
+                    for idx, f in enumerate(flights, start=1):
+                        st.markdown(
+                            f"{idx}. **{f.get('price_eur', 'N/A')} EUR** · "
+                            f"{f.get('duration_min', 'N/A')} min · "
+                            f"{f.get('stops', 'N/A')} escalas"
+                        )
+
+        else:
+            st.info("No pude extraer destinos de la salida CLIPS para mostrar botones.")
+
+
 @st.cache_data(show_spinner="Analizando imagen con IA...")
 def obtener_respuesta_ia_imagen(image_bytes, mime_type, texto_usuario="", _config_params=None):
     try:
@@ -337,7 +422,6 @@ def seccion_modo_texto():
                 st.markdown(user_text)
 
             with st.chat_message("assistant"):
-                print("--- DISPARANDO LLAMADA A GEMINI (TEXTO) ---")
                 placeholder = st.empty()
                 with placeholder.container():
                     st_airplanes()
@@ -348,14 +432,10 @@ def seccion_modo_texto():
                 st.markdown(respuesta)
                 st.session_state.ultima_respuesta_texto = respuesta
 
-            with st.expander("🧠 CLIPS recommendations", expanded=False):
-                clips_output = obtener_salida_clips(
-                    respuesta,
-                    _config_params={"modo": "texto"},
-                )
-                st.code(clips_output, language="text")
-
             st.session_state.messages.append({"role": "assistant", "content": respuesta})
+
+    if st.session_state.ultima_respuesta_texto:
+        render_clips_and_live_block(st.session_state.ultima_respuesta_texto, "texto")
 
     if st.button("🗑️ Limpiar conversación"):
         st.session_state.messages = []
@@ -389,7 +469,6 @@ def seccion_modo_imagen():
             placeholder = st.empty()
             with placeholder.container():
                 st_airplanes()
-            print("--- DISPARANDO LLAMADA A GEMINI (IMAGEN) ---")
             st.session_state.respuesta_ia_imagen = obtener_respuesta_ia_imagen(
                 imagen.getvalue(),
                 getattr(imagen, "type", "image/jpeg"),
@@ -399,12 +478,7 @@ def seccion_modo_imagen():
     if st.session_state.respuesta_ia_imagen:
         st.success("Analisis completado")
         st.code(st.session_state.respuesta_ia_imagen, language="json")
-        with st.expander("🧠 CLIPS recommendations", expanded=False):
-            clips_output = obtener_salida_clips(
-                st.session_state.respuesta_ia_imagen,
-                _config_params={"modo": "imagen"},
-            )
-            st.code(clips_output, language="text")
+        render_clips_and_live_block(st.session_state.respuesta_ia_imagen, "imagen")
 
 def seccion_ia():
     """Maneja la sección de IA con modos libre y detallado."""
