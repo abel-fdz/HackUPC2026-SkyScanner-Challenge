@@ -33,6 +33,24 @@
         ?res)
 )
 
+; Convert numeric month to short label.
+(deffunction output::month-label (?m)
+    (switch ?m
+        (case 1 then "JAN")
+        (case 2 then "FEB")
+        (case 3 then "MAR")
+        (case 4 then "APR")
+        (case 5 then "MAY")
+        (case 6 then "JUN")
+        (case 7 then "JUL")
+        (case 8 then "AUG")
+        (case 9 then "SEP")
+        (case 10 then "OCT")
+        (case 11 then "NOV")
+        (case 12 then "DEC")
+        (default "?"))
+)
+
 ; Simple tags for destination features
 (deffunction output::destination-tags (?of)
     (bind ?txt "")
@@ -95,14 +113,20 @@
               (test (< ?p2 ?pos))
               (not (printed ?p2))))
     =>
-    (bind ?name (instance-name ?of))
+    (bind ?dest (send ?of get-Destination))
+    (bind ?label "Unknown destination")
+    (if (neq ?dest [nil])
+        then
+        (bind ?loc (send ?dest get-location))
+        (bind ?label (send ?loc get-country)))
     (bind ?price (send ?of get-price))
+    (bind ?month (send ?of get-month))
     (bind ?score (send ?of get-score))
     (bind ?advantages (send ?of get-advantages))
     (bind ?disadvantages (send ?of get-disadvantages))
     (bind ?reason (send ?of get-reason))
 
-    (printout t crlf ?pos ". " ?name " " (translate-grade ?g) crlf)
+    (printout t crlf ?pos ". " ?label " (" (month-label ?month) ") " (translate-grade ?g) crlf)
     (printout t "   Price: " ?price "€ | Score: " ?score crlf)
     (printout t "   Type: " (destination-tags ?of) crlf)
     (printout t "   Travel time: " (send ?of get-travelTime) crlf)

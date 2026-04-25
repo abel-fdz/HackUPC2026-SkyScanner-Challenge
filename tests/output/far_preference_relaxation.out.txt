@@ -1,0 +1,126 @@
+####
+@
++%%***********
++!!!************************************
++***************************************
++%%%!!******
++!!!!*****
+
+=== TRAVEL DESTINATION RECOMMENDATION SYSTEM ===
+
+-- BUDGET --
+Maximum total budget (€): 
+-- DATE AND DURATION --
+Travel month (1-12): Trip duration (days): Date flexibility? (1.None 2.A few days 3.Weeks) [1]: 
+-- ORIGIN AND DISTANCE PREFERENCE --
+Preferred continent (1.Europe 2.Asia 3.Africa 4.North America 5.South America 6.Oceania 7.Any) [7]: Distance preference (1.NEAR 2.FAR 3.ANY) [3]: 
+-- TRIP TYPE --
+Trip type (1.ADVENTURE 2.RELAXATION 3.CULTURAL 4.ROMANTIC 5.FAMILY 6.BUSINESS) [1]: 
+-- CLIMATE AND TEMPERATURE --
+Preferred climate (1.DRY 2.HUMID 3.TROPICAL 4.TEMPERATE 5.COLD 6.ANY) [6]: Preferred temperature (1.HOT 2.MILD 3.COLD 4.ANY) [4]: 
+-- NATURAL ENVIRONMENT --
+Do you need a beach? (y/n) [n]: Do you need mountains? (y/n) [n]: Do you need nature/green spaces? (y/n) [n]: 
+-- DESTINATION TYPE --
+Preferred population type (1.MAJOR-CITY 2.CITY 3.RURAL 4.ANY) [4]: 
+-- ACTIVITIES AND INTERESTS --
+Are you interested in culture/museums/art? (y/n) [n]: Are you interested in nightlife/parties? (y/n) [n]: Are you interested in adventure/sports activities? (y/n) [n]: Are you interested in historical sites/heritage? (y/n) [n]: 
+-- OFFERS FILTERS --
+Would you like to filter offers? (y/n) [n]: Skipping offers filtering.
+
+
+=== SEARCH SUMMARY ===
+Maximum budget: 2200.0€
+Month: 5 | Duration: 10 days | Flexibility: NONE
+Origin: (41.38, 2.17)
+Preferred continent: ANY | Distance preference: FAR
+Trip type: RELAXATION
+Climate: TROPICAL | Temperature: HOT
+Beach: TRUE | Mountain: FALSE | Nature: TRUE
+Destination type: ANY
+Culture: FALSE | Party: FALSE | Activities: TRUE | History: FALSE
+
+Searching for destinations and offers...
+
+
+============================================================
+                TOP 5 DESTINATION RECOMMENDATIONS           
+============================================================
+Total: 111 destinations (46 very recommended, 0 recommended, 44 partial)
+------------------------------------------------------------
+
+1. Nairobi Jomo Kenyatta (MAY) *** VERY RECOMMENDED ***
+   Price: 730€ | Score: 135.0
+   Type: Beach Culture Nature
+   Travel time: LONG
+   Distance from origin: 5553 km
+   [+] Advantages: Within budget, Good for relaxation, Preferred climate, Preferred temperature, Beach available, Nature environment, Activities available, Far destination as requested
+   [-] Disadvantages: -
+   -> Reason: Excellent match
+
+2. Recife (MAY) *** VERY RECOMMENDED ***
+   Price: 770€ | Score: 135.0
+   Type: Beach Culture Nature
+   Travel time: LONG
+   Distance from origin: 6304 km
+   [+] Advantages: Within budget, Good for relaxation, Preferred climate, Preferred temperature, Beach available, Nature environment, Activities available, Far destination as requested
+   [-] Disadvantages: -
+   -> Reason: Excellent match
+
+3. Seychelles (MAY) *** VERY RECOMMENDED ***
+   Price: 821€ | Score: 135.0
+   Type: Beach Culture Nature
+   Travel time: LONG
+   Distance from origin: 6773 km
+   [+] Advantages: Within budget, Good for relaxation, Preferred climate, Preferred temperature, Beach available, Nature environment, Activities available, Far destination as requested
+   [-] Disadvantages: -
+   -> Reason: Excellent match
+
+4. Internacional Mariscal Sucre de Quito (MAY) *** VERY RECOMMENDED ***
+   Price: 825€ | Score: 135.0
+   Type: Beach Culture Nature
+   Travel time: LONG
+   Distance from origin: 8136 km
+   [+] Advantages: Within budget, Good for relaxation, Preferred climate, Preferred temperature, Beach available, Nature environment, Activities available, Far destination as requested
+   [-] Disadvantages: -
+   -> Reason: Excellent match
+
+5. Zanzíbar (MAY) *** VERY RECOMMENDED ***
+   Price: 861€ | Score: 135.0
+   Type: Beach Culture Nature
+   Travel time: LONG
+   Distance from origin: 6118 km
+   [+] Advantages: Within budget, Good for relaxation, Preferred climate, Preferred temperature, Beach available, Nature environment, Activities available, Far destination as requested
+   [-] Disadvantages: -
+   -> Reason: Excellent match
+
+============================================================
+
+
+
+[CSTRNCHK1] 5_heuristica.clp, Line 29: A literal restriction value found in CE #1 does not match the allowed types for slot 'price'.
+
+ERROR:
+(defrule heuristic::apply-offer-filter-price
+   (declare (salience 200))
+   (object (name [offers-filter])
+           (price ?max&~nil))
+   ?of <- (object (is-a Offer)
+           (name ?name&:(neq ?name [offers-filter]))
+           (Destination ?dest&~[nil])
+           (price ?p&:(> ?p ?max)))
+   =>
+   (send ?of put-Destination [nil]))
+
+[CSTRNCHK1] 5_heuristica.clp, Line 40: A literal restriction value found in CE #1 does not match the allowed types for slot 'duration'.
+
+ERROR:
+(defrule heuristic::apply-offer-filter-duration
+   (declare (salience 200))
+   (object (name [offers-filter])
+           (duration ?dur&~nil))
+   ?of <- (object (is-a Offer)
+           (name ?name&:(neq ?name [offers-filter]))
+           (Destination ?dest&~[nil])
+           (duration ?d&:(<> ?d ?dur)))
+   =>
+   (send ?of put-Destination [nil]))

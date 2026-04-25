@@ -1,0 +1,126 @@
+####
+@
++%%***********
++!!!************************************
++***************************************
++%%%!!******
++!!!!*****
+
+=== TRAVEL DESTINATION RECOMMENDATION SYSTEM ===
+
+-- BUDGET --
+Maximum total budget (€): 
+-- DATE AND DURATION --
+Travel month (1-12): Trip duration (days): Date flexibility? (1.None 2.A few days 3.Weeks) [1]: 
+-- ORIGIN AND DISTANCE PREFERENCE --
+Preferred continent (1.Europe 2.Asia 3.Africa 4.North America 5.South America 6.Oceania 7.Any) [7]: Distance preference (1.NEAR 2.FAR 3.ANY) [3]: 
+-- TRIP TYPE --
+Trip type (1.ADVENTURE 2.RELAXATION 3.CULTURAL 4.ROMANTIC 5.FAMILY 6.BUSINESS) [1]: 
+-- CLIMATE AND TEMPERATURE --
+Preferred climate (1.DRY 2.HUMID 3.TROPICAL 4.TEMPERATE 5.COLD 6.ANY) [6]: Preferred temperature (1.HOT 2.MILD 3.COLD 4.ANY) [4]: 
+-- NATURAL ENVIRONMENT --
+Do you need a beach? (y/n) [n]: Do you need mountains? (y/n) [n]: Do you need nature/green spaces? (y/n) [n]: 
+-- DESTINATION TYPE --
+Preferred population type (1.MAJOR-CITY 2.CITY 3.RURAL 4.ANY) [4]: 
+-- ACTIVITIES AND INTERESTS --
+Are you interested in culture/museums/art? (y/n) [n]: Are you interested in nightlife/parties? (y/n) [n]: Are you interested in adventure/sports activities? (y/n) [n]: Are you interested in historical sites/heritage? (y/n) [n]: 
+-- OFFERS FILTERS --
+Would you like to filter offers? (y/n) [n]: Skipping offers filtering.
+
+
+=== SEARCH SUMMARY ===
+Maximum budget: 1200.0€
+Month: 8 | Duration: 12 days | Flexibility: NONE
+Origin: (41.38, 2.17)
+Preferred continent: ANY | Distance preference: NEAR
+Trip type: ADVENTURE
+Climate: COLD | Temperature: COLD
+Beach: FALSE | Mountain: TRUE | Nature: TRUE
+Destination type: CITY
+Culture: TRUE | Party: FALSE | Activities: TRUE | History: TRUE
+
+Searching for destinations and offers...
+
+
+============================================================
+                TOP 5 DESTINATION RECOMMENDATIONS           
+============================================================
+Total: 114 destinations (49 very recommended, 6 recommended, 6 partial)
+------------------------------------------------------------
+
+1. Cork (AUG) *** VERY RECOMMENDED ***
+   Price: 823€ | Score: 172.0
+   Type: Culture Nature
+   Travel time: SHORT
+   Distance from origin: 1461 km
+   [+] Advantages: Within budget, Good for adventure, Preferred climate, Preferred temperature, Mountain environment, Nature environment, Preferred destination type, Cultural destination, Activities available, Historical sites, Very close to origin
+   [-] Disadvantages: -
+   -> Reason: Excellent match
+
+2. Londres Stansted (AUG) *** VERY RECOMMENDED ***
+   Price: 828€ | Score: 172.0
+   Type: Culture Nature
+   Travel time: SHORT
+   Distance from origin: 1176 km
+   [+] Advantages: Within budget, Good for adventure, Preferred climate, Preferred temperature, Mountain environment, Nature environment, Preferred destination type, Cultural destination, Activities available, Historical sites, Very close to origin
+   [-] Disadvantages: -
+   -> Reason: Excellent match
+
+3. Bruselas S. Charleroi (AUG) *** VERY RECOMMENDED ***
+   Price: 841€ | Score: 172.0
+   Type: Culture Nature
+   Travel time: SHORT
+   Distance from origin: 1025 km
+   [+] Advantages: Within budget, Good for adventure, Preferred climate, Preferred temperature, Mountain environment, Nature environment, Preferred destination type, Cultural destination, Activities available, Historical sites, Very close to origin
+   [-] Disadvantages: -
+   -> Reason: Excellent match
+
+4. Praga (AUG) *** VERY RECOMMENDED ***
+   Price: 854€ | Score: 172.0
+   Type: Culture Nature
+   Travel time: SHORT
+   Distance from origin: 1397 km
+   [+] Advantages: Within budget, Good for adventure, Preferred climate, Preferred temperature, Mountain environment, Nature environment, Preferred destination type, Cultural destination, Activities available, Historical sites, Very close to origin
+   [-] Disadvantages: -
+   -> Reason: Excellent match
+
+5. Viena (AUG) *** VERY RECOMMENDED ***
+   Price: 834€ | Score: 154.0
+   Type: Culture Nature
+   Travel time: SHORT
+   Distance from origin: 1412 km
+   [+] Advantages: Within budget, Good for adventure, Preferred temperature, Mountain environment, Nature environment, Preferred destination type, Cultural destination, Activities available, Historical sites, Very close to origin
+   [-] Disadvantages: Different climate
+   -> Reason: Excellent match
+
+============================================================
+
+
+
+[CSTRNCHK1] 5_heuristica.clp, Line 29: A literal restriction value found in CE #1 does not match the allowed types for slot 'price'.
+
+ERROR:
+(defrule heuristic::apply-offer-filter-price
+   (declare (salience 200))
+   (object (name [offers-filter])
+           (price ?max&~nil))
+   ?of <- (object (is-a Offer)
+           (name ?name&:(neq ?name [offers-filter]))
+           (Destination ?dest&~[nil])
+           (price ?p&:(> ?p ?max)))
+   =>
+   (send ?of put-Destination [nil]))
+
+[CSTRNCHK1] 5_heuristica.clp, Line 40: A literal restriction value found in CE #1 does not match the allowed types for slot 'duration'.
+
+ERROR:
+(defrule heuristic::apply-offer-filter-duration
+   (declare (salience 200))
+   (object (name [offers-filter])
+           (duration ?dur&~nil))
+   ?of <- (object (is-a Offer)
+           (name ?name&:(neq ?name [offers-filter]))
+           (Destination ?dest&~[nil])
+           (duration ?d&:(<> ?d ?dur)))
+   =>
+   (send ?of put-Destination [nil]))

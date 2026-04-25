@@ -37,6 +37,17 @@
     (return (send ?of get-score))
 )
 
+; Order by higher score; if tied, prefer cheaper offer.
+(deffunction refinement::better-offer (?candidate ?current)
+    (bind ?cScore (get-score ?candidate))
+    (bind ?oScore (get-score ?current))
+    (if (> ?cScore ?oScore)
+        then (return TRUE))
+    (if (< ?cScore ?oScore)
+        then (return FALSE))
+    (return (< (send ?candidate get-price) (send ?current get-price)))
+)
+
 ; ============================================
 ; INITIALIZATION
 ; ============================================
@@ -77,8 +88,7 @@
     (test (neq (send ?of get-Destination) [nil]))
     (not (object (is-a Offer) (grade VERY_RECOMMENDED)
         (name ?other&:(and (neq ?other (instance-name ?of))
-                           (> (get-score (instance-address * ?other))
-                              (get-score ?of))))))
+                           (better-offer (instance-address * ?other) ?of)))))
     =>
     (assert (selection (position (+ ?n 1)) (offer ?of) (original-grade VERY_RECOMMENDED)))
     (modify ?c (value (+ ?n 1)))
@@ -93,8 +103,7 @@
     (test (neq (send ?of get-Destination) [nil]))
     (not (object (is-a Offer) (grade RECOMMENDED)
         (name ?other&:(and (neq ?other (instance-name ?of))
-                           (> (get-score (instance-address * ?other))
-                              (get-score ?of))))))
+                           (better-offer (instance-address * ?other) ?of)))))
     =>
     (assert (selection (position (+ ?n 1)) (offer ?of) (original-grade RECOMMENDED)))
     (modify ?c (value (+ ?n 1)))
@@ -109,8 +118,7 @@
     (test (neq (send ?of get-Destination) [nil]))
     (not (object (is-a Offer) (grade PARTIAL)
         (name ?other&:(and (neq ?other (instance-name ?of))
-                           (> (get-score (instance-address * ?other))
-                              (get-score ?of))))))
+                           (better-offer (instance-address * ?other) ?of)))))
     =>
     (assert (selection (position (+ ?n 1)) (offer ?of) (original-grade PARTIAL)))
     (modify ?c (value (+ ?n 1)))
@@ -125,8 +133,7 @@
     (test (neq (send ?of get-Destination) [nil]))
     (not (object (is-a Offer) (grade NOT_SUITABLE)
         (name ?other&:(and (neq ?other (instance-name ?of))
-                           (> (get-score (instance-address * ?other))
-                              (get-score ?of))))))
+                           (better-offer (instance-address * ?other) ?of)))))
     =>
     (assert (selection (position (+ ?n 1)) (offer ?of) (original-grade NOT_SUITABLE)))
     (modify ?c (value (+ ?n 1)))

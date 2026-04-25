@@ -1,0 +1,126 @@
+####
+@
++%%***********
++!!!************************************
++***************************************
++%%%!!******
++!!!!*****
+
+=== TRAVEL DESTINATION RECOMMENDATION SYSTEM ===
+
+-- BUDGET --
+Maximum total budget (€): 
+-- DATE AND DURATION --
+Travel month (1-12): Trip duration (days): Date flexibility? (1.None 2.A few days 3.Weeks) [1]: 
+-- ORIGIN AND DISTANCE PREFERENCE --
+Preferred continent (1.Europe 2.Asia 3.Africa 4.North America 5.South America 6.Oceania 7.Any) [7]: Distance preference (1.NEAR 2.FAR 3.ANY) [3]: 
+-- TRIP TYPE --
+Trip type (1.ADVENTURE 2.RELAXATION 3.CULTURAL 4.ROMANTIC 5.FAMILY 6.BUSINESS) [1]: 
+-- CLIMATE AND TEMPERATURE --
+Preferred climate (1.DRY 2.HUMID 3.TROPICAL 4.TEMPERATE 5.COLD 6.ANY) [6]: Preferred temperature (1.HOT 2.MILD 3.COLD 4.ANY) [4]: 
+-- NATURAL ENVIRONMENT --
+Do you need a beach? (y/n) [n]: Do you need mountains? (y/n) [n]: Do you need nature/green spaces? (y/n) [n]: 
+-- DESTINATION TYPE --
+Preferred population type (1.MAJOR-CITY 2.CITY 3.RURAL 4.ANY) [4]: 
+-- ACTIVITIES AND INTERESTS --
+Are you interested in culture/museums/art? (y/n) [n]: Are you interested in nightlife/parties? (y/n) [n]: Are you interested in adventure/sports activities? (y/n) [n]: Are you interested in historical sites/heritage? (y/n) [n]: 
+-- OFFERS FILTERS --
+Would you like to filter offers? (y/n) [n]: Maximum offer price (€) [any]: Offer duration (days) [any]: Offers filter created.
+
+
+=== SEARCH SUMMARY ===
+Maximum budget: 1200.0€
+Month: 3 | Duration: 19 days | Flexibility: HIGH
+Origin: (41.38, 2.17)
+Preferred continent: ANY | Distance preference: ANY
+Trip type: ROMANTIC
+Climate: ANY | Temperature: ANY
+Beach: TRUE | Mountain: FALSE | Nature: FALSE
+Destination type: ANY
+Culture: TRUE | Party: FALSE | Activities: FALSE | History: FALSE
+
+Searching for destinations and offers...
+
+
+============================================================
+                TOP 5 DESTINATION RECOMMENDATIONS           
+============================================================
+Total: 272 destinations (69 very recommended, 0 recommended, 144 partial)
+------------------------------------------------------------
+
+1. Lárnaca (APR) *** VERY RECOMMENDED ***
+   Price: 535€ | Score: 75.0
+   Type: Beach Culture
+   Travel time: SHORT
+   Distance from origin: 2717 km
+   [+] Advantages: Within budget, Beach available, Cultural destination
+   [-] Disadvantages: -
+   -> Reason: Excellent match
+
+2. Lárnaca (MAR) *** VERY RECOMMENDED ***
+   Price: 542€ | Score: 75.0
+   Type: Beach Culture
+   Travel time: SHORT
+   Distance from origin: 2717 km
+   [+] Advantages: Within budget, Beach available, Cultural destination
+   [-] Disadvantages: -
+   -> Reason: Excellent match
+
+3. Lárnaca (FEB) *** VERY RECOMMENDED ***
+   Price: 553€ | Score: 75.0
+   Type: Beach Culture
+   Travel time: SHORT
+   Distance from origin: 2717 km
+   [+] Advantages: Within budget, Beach available, Cultural destination
+   [-] Disadvantages: -
+   -> Reason: Excellent match
+
+4. Hurghada (FEB) *** VERY RECOMMENDED ***
+   Price: 556€ | Score: 75.0
+   Type: Beach Culture Nature
+   Travel time: SHORT
+   Distance from origin: 3070 km
+   [+] Advantages: Within budget, Beach available, Cultural destination
+   [-] Disadvantages: -
+   -> Reason: Excellent match
+
+5. Internacional Blaise Diagne (MAR) *** VERY RECOMMENDED ***
+   Price: 609€ | Score: 75.0
+   Type: Beach Culture Nature
+   Travel time: LONG
+   Distance from origin: 3370 km
+   [+] Advantages: Within budget, Beach available, Cultural destination
+   [-] Disadvantages: -
+   -> Reason: Excellent match
+
+============================================================
+
+
+
+[CSTRNCHK1] 5_heuristica.clp, Line 29: A literal restriction value found in CE #1 does not match the allowed types for slot 'price'.
+
+ERROR:
+(defrule heuristic::apply-offer-filter-price
+   (declare (salience 200))
+   (object (name [offers-filter])
+           (price ?max&~nil))
+   ?of <- (object (is-a Offer)
+           (name ?name&:(neq ?name [offers-filter]))
+           (Destination ?dest&~[nil])
+           (price ?p&:(> ?p ?max)))
+   =>
+   (send ?of put-Destination [nil]))
+
+[CSTRNCHK1] 5_heuristica.clp, Line 40: A literal restriction value found in CE #1 does not match the allowed types for slot 'duration'.
+
+ERROR:
+(defrule heuristic::apply-offer-filter-duration
+   (declare (salience 200))
+   (object (name [offers-filter])
+           (duration ?dur&~nil))
+   ?of <- (object (is-a Offer)
+           (name ?name&:(neq ?name [offers-filter]))
+           (Destination ?dest&~[nil])
+           (duration ?d&:(<> ?d ?dur)))
+   =>
+   (send ?of put-Destination [nil]))

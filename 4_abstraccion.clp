@@ -19,6 +19,14 @@
    (return (/ (distance-meters ?lat1 ?lon1 ?lat2 ?lon2) 1000.0))
 )
 
+; Smallest circular month distance (e.g. DEC->JAN = 1).
+(deffunction month-distance (?m1 ?m2)
+   (bind ?d (abs (- ?m1 ?m2)))
+   (if (> ?d 6)
+      then (return (- 12 ?d))
+      else (return ?d))
+)
+
 ; IF budgetMax < 1000 THEN budgetLevel = LOW
 (defrule abstraction::derive-budget-low
     ?d <- (object (is-a Demand) (budgetMax ?p&:(< ?p 1000)) (budgetLevel nil))
@@ -293,6 +301,23 @@
     (object (name ?loc) (latitude ?dlat) (longitude ?dlon))
     =>
     (send ?of put-distanceFromOrigin (distance-km ?olat ?olon ?dlat ?dlon))
+)
+
+; Strict month filter if no flexibility: only exact month.
+(defrule abstraction::filter-month-no-flexibility
+    (object (is-a Demand) (month ?m) (flexibility NONE))
+    ?of <- (object (is-a Offer) (month ?om&:(<> ?om ?m)) (Destination ?dest&~[nil]))
+    =>
+    (send ?of put-Destination [nil])
+)
+
+; Flexible month filter: allow at most +/- 1 month.
+(defrule abstraction::filter-month-with-flexibility
+    (object (is-a Demand) (month ?m) (flexibility ?f&:(or (eq ?f LOW) (eq ?f HIGH))))
+    ?of <- (object (is-a Offer) (month ?om) (Destination ?dest&~[nil]))
+    (test (> (month-distance ?m ?om) 1))
+    =>
+    (send ?of put-Destination [nil])
 )
 
 (defrule abstraction::next-step

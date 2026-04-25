@@ -16,6 +16,29 @@
 ; POSITIVE SCORING
 ; ============================================
 
+; Apply optional offers filter created in input module.
+(defrule heuristic::apply-offer-filter-price
+    (declare (salience 200))
+    (object (name [offers-filter]) (price ?max&~nil))
+    ?of <- (object (is-a Offer)
+                   (name ?name&:(neq ?name [offers-filter]))
+                   (Destination ?dest&~[nil])
+                   (price ?p&:(> ?p ?max)))
+    =>
+    (send ?of put-Destination [nil])
+)
+
+(defrule heuristic::apply-offer-filter-duration
+    (declare (salience 200))
+    (object (name [offers-filter]) (duration ?dur&~nil))
+    ?of <- (object (is-a Offer)
+                   (name ?name&:(neq ?name [offers-filter]))
+                   (Destination ?dest&~[nil])
+                   (duration ?d&:(<> ?d ?dur)))
+    =>
+    (send ?of put-Destination [nil])
+)
+
 ; Budget OK
 (defrule heuristic::score-budget-good
     (object (is-a Demand) (budgetMax ?bMax))
@@ -57,6 +80,124 @@
     (bind ?new (+ (send ?of get-score) 20))
     (send ?of put-score ?new)
     (slot-insert$ ?of advantages 1 "Nature environment")
+)
+
+; Mountain preference
+(defrule heuristic::score-mountain
+    (object (is-a Demand) (needMountain TRUE))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasMountain TRUE))
+    =>
+    (bind ?new (+ (send ?of get-score) 12))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of advantages 1 "Mountain environment")
+)
+
+; Party preference
+(defrule heuristic::score-party
+    (object (is-a Demand) (needParty TRUE))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasParty TRUE))
+    =>
+    (bind ?new (+ (send ?of get-score) 12))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of advantages 1 "Nightlife available")
+)
+
+; Activities preference
+(defrule heuristic::score-activities
+    (object (is-a Demand) (needActivities TRUE))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasActivities TRUE))
+    =>
+    (bind ?new (+ (send ?of get-score) 12))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of advantages 1 "Activities available")
+)
+
+; History preference
+(defrule heuristic::score-history
+    (object (is-a Demand) (needHistory TRUE))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasHistory TRUE))
+    =>
+    (bind ?new (+ (send ?of get-score) 10))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of advantages 1 "Historical sites")
+)
+
+; Climate match (if explicitly requested).
+(defrule heuristic::score-climate-match
+    (object (is-a Demand) (climate ?c&:(neq ?c ANY)))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasClimate ?dc&:(eq ?dc ?c)))
+    =>
+    (bind ?new (+ (send ?of get-score) 10))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of advantages 1 "Preferred climate")
+)
+
+; Temperature match (if explicitly requested).
+(defrule heuristic::score-temperature-match
+    (object (is-a Demand) (temperature ?t&:(neq ?t ANY)))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasTemperature ?dt&:(eq ?dt ?t)))
+    =>
+    (bind ?new (+ (send ?of get-score) 8))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of advantages 1 "Preferred temperature")
+)
+
+; Population type match (if explicitly requested).
+(defrule heuristic::score-population-match
+    (object (is-a Demand) (typePopulation ?tp&:(neq ?tp ANY)))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasTypePopulation ?dp&:(eq ?dp ?tp)))
+    =>
+    (bind ?new (+ (send ?of get-score) 8))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of advantages 1 "Preferred destination type")
+)
+
+; Trip type alignment.
+(defrule heuristic::score-trip-adventure
+    (object (is-a Demand) (tripType ADVENTURE))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasActivities TRUE))
+    =>
+    (bind ?new (+ (send ?of get-score) 12))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of advantages 1 "Good for adventure")
+)
+
+(defrule heuristic::score-trip-relaxation
+    (object (is-a Demand) (tripType RELAXATION))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasBeach TRUE))
+    =>
+    (bind ?new (+ (send ?of get-score) 10))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of advantages 1 "Good for relaxation")
+)
+
+(defrule heuristic::score-trip-family
+    (object (is-a Demand) (tripType FAMILY))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasActivities TRUE))
+    =>
+    (bind ?new (+ (send ?of get-score) 10))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of advantages 1 "Family-friendly activities")
+)
+
+(defrule heuristic::score-trip-business
+    (object (is-a Demand) (tripType BUSINESS))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasTypePopulation ?tp&:(or (eq ?tp MAJOR-CITY) (eq ?tp CITY))))
+    =>
+    (bind ?new (+ (send ?of get-score) 10))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of advantages 1 "Business-friendly city")
 )
 
 ; Short trip compatibility
@@ -163,6 +304,83 @@
     (bind ?new (- (send ?of get-score) 20))
     (send ?of put-score ?new)
     (slot-insert$ ?of disadvantages 1 "No cultural activities")
+)
+
+; Missing mountain
+(defrule heuristic::penalty-no-mountain
+    (object (is-a Demand) (needMountain TRUE))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasMountain FALSE))
+    =>
+    (bind ?new (- (send ?of get-score) 12))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of disadvantages 1 "No mountains")
+)
+
+; Missing party
+(defrule heuristic::penalty-no-party
+    (object (is-a Demand) (needParty TRUE))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasParty FALSE))
+    =>
+    (bind ?new (- (send ?of get-score) 12))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of disadvantages 1 "No nightlife")
+)
+
+; Missing activities
+(defrule heuristic::penalty-no-activities
+    (object (is-a Demand) (needActivities TRUE))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasActivities FALSE))
+    =>
+    (bind ?new (- (send ?of get-score) 12))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of disadvantages 1 "Few activities")
+)
+
+; Missing history
+(defrule heuristic::penalty-no-history
+    (object (is-a Demand) (needHistory TRUE))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasHistory FALSE))
+    =>
+    (bind ?new (- (send ?of get-score) 10))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of disadvantages 1 "No historical sites")
+)
+
+; Climate mismatch (if explicitly requested).
+(defrule heuristic::penalty-climate-mismatch
+    (object (is-a Demand) (climate ?c&:(neq ?c ANY)))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasClimate ?dc&:(neq ?dc ?c)))
+    =>
+    (bind ?new (- (send ?of get-score) 8))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of disadvantages 1 "Different climate")
+)
+
+; Temperature mismatch (if explicitly requested).
+(defrule heuristic::penalty-temperature-mismatch
+    (object (is-a Demand) (temperature ?t&:(neq ?t ANY)))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasTemperature ?dt&:(neq ?dt ?t)))
+    =>
+    (bind ?new (- (send ?of get-score) 6))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of disadvantages 1 "Different temperature")
+)
+
+; Population mismatch (if explicitly requested).
+(defrule heuristic::penalty-population-mismatch
+    (object (is-a Demand) (typePopulation ?tp&:(neq ?tp ANY)))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasTypePopulation ?dp&:(neq ?dp ?tp)))
+    =>
+    (bind ?new (- (send ?of get-score) 6))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of disadvantages 1 "Different destination type")
 )
 
 ; Too far for short trip
