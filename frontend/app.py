@@ -137,24 +137,32 @@ def st_airplanes():
 # FUNCIONES DE BACKEND Y PROCESAMIENTO
 # ============================================================================
 
-def ejecutar_backend(texto):
-    """
-    Ejecuta el script de backend con el texto proporcionado.
-    
-    Args:
-        texto (str): Texto a procesar por el backend
-    """
+def ejecutar_backend(texto, imagen=None):
     backend_script = Path(__file__).parent.parent / "backend" / "proceso.py"
     if not backend_script.exists():
         st.error(f"Archivo no encontrado en: {backend_script}")
         return
-    
+
+    # Guardamos la imagen temporalmente si existe
+    imagen_path = None
+    if imagen:
+        import tempfile
+        suffix = Path(imagen.name).suffix
+        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
+            tmp.write(imagen.read())
+            imagen_path = tmp.name
+
+    cmd = [sys.executable, str(backend_script), texto]
+    if imagen_path:
+        cmd.append(imagen_path)
+
     with st.spinner("Procesando..."):
-        result = subprocess.run(
-            [sys.executable, str(backend_script), texto],
-            capture_output=True, text=True, encoding='utf-8'
-        )
-    
+        result = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8')
+
+    # Limpiamos el archivo temporal
+    if imagen_path:
+        Path(imagen_path).unlink(missing_ok=True)
+
     mostrar_resultado_backend(result)
 
 
@@ -314,18 +322,18 @@ def inicializar_sesion():
 
 
 def mostrar_selector_modo():
-    """Muestra los botones para seleccionar modo libre o detallado."""
+    """Muestra los botones para seleccionar modo texto o imagen."""
     col_btn1, col_btn2 = st.columns(2)
     with col_btn1:
-        if st.button("✏️ Modo libre", use_container_width=True):
+        if st.button("✏️ Modo texto", use_container_width=True):
             st.session_state.modo_detallado = False
     with col_btn2:
-        if st.button("🎛️ Modo detallado", use_container_width=True):
+        if st.button("📸 Modo imagen", use_container_width=True):
             st.session_state.modo_detallado = True
 
 
-def seccion_modo_libre():
-    """Muestra la sección del modo libre de entrada de texto."""
+def seccion_modo_texto():
+    """Muestra la sección del modo texto de entrada de texto."""
     user_text = st.text_area(
         label="¿Cómo imaginas tu viaje perfecto?",
         placeholder="Ej: Quiero un viaje de 10 días con mi pareja, me gustan las playas tranquilas, la buena comida y no quiero gastar más de 2000€ por persona...",
@@ -339,100 +347,24 @@ def seccion_modo_libre():
             ejecutar_backend(user_text)
 
 
-def obtener_parametros_modo_detallado_col1():
-    """
-    Obtiene los parámetros de la primera columna del modo detallado.
-    
-    Returns:
-        tuple: (precio_max, duracion, temperatura, flexibilidad)
-    """
-    precio_max = st.slider("💶 Precio máximo (€/persona)", 100, 5000, 1500, step=50)
-    duracion = st.slider("🗓️ Duración (días)", 1, 30, 7)
-    temperatura = st.slider("🌡️ Temperatura deseada (°C)", 0, 45, 25)
-    flexibilidad = st.slider("📅 Flexibilidad de fechas (±días)", 0, 30, 3)
-    
-    return precio_max, duracion, temperatura, flexibilidad
 
 
-def obtener_parametros_modo_detallado_col2():
-    mes = st.selectbox("📆 Mes de viaje", MESES)
-    tipo_grupo = st.selectbox("👥 Tipo de viaje", TIPOS_VIAJE)
-    
-    # Índice guardado para que persista correctamente
-    idx = CLIMAS.index(st.session_state.get("clima_seleccionado", "Sin preferencia"))
-    clima = st.selectbox(
-        "☁️ Clima preferido", CLIMAS,
-        index=idx,
-        key="clima_seleccionado"  # session_state se actualiza automáticamente
+def seccion_modo_imagen():
+    """Muestra la sección del modo imagen."""
+    st.write("")
+    imagen = st.file_uploader(
+        "📸 Sube una imagen que inspire tu viaje",
+        type=["jpg", "jpeg", "png", "webp"]
     )
-    return mes, tipo_grupo, clima
 
-
-def obtener_parametros_modo_detallado():
-    """
-    Obtiene todos los parámetros del modo detallado.
-    
-    Returns:
-        tuple: (precio_max, duracion, temperatura, flexibilidad, mes, tipo_grupo, clima, tipo_destino)
-    """
-    col1, col2 = st.columns(2)
-
-    with col1:
-        precio_max, duracion, temperatura, flexibilidad = obtener_parametros_modo_detallado_col1()
-
-    with col2:
-        mes, tipo_grupo, clima = obtener_parametros_modo_detallado_col2()
-
-    tipo_destino = st.multiselect(
-        "🗺️ Tipo de destino",
-        TIPOS_DESTINO,
-        default=["🏖️ Playa"]
-    )
-    
-    return precio_max, duracion, temperatura, flexibilidad, mes, tipo_grupo, clima, tipo_destino
-
-
-def construir_texto_modo_detallado(precio_max, duracion, temperatura, flexibilidad, mes, tipo_grupo, clima, tipo_destino):
-    """
-    Construye el texto para enviar al backend basado en los parámetros del modo detallado.
-    
-    Args:
-        precio_max (int): Precio máximo
-        duracion (int): Duración en días
-        temperatura (int): Temperatura deseada
-        flexibilidad (int): Flexibilidad en días
-        mes (str): Mes de viaje
-        tipo_grupo (str): Tipo de viaje
-        clima (str): Clima preferido
-        tipo_destino (list): Lista de tipos de destino
-    
-    Returns:
-        str: Texto formateado para el backend
-    """
-    tipos = ", ".join(tipo_destino) if tipo_destino else "Sin preferencia"
-    texto_detallado = f"""
-Precio máximo: {precio_max}€ por persona
-Mes de viaje: {mes}
-Duración: {duracion} días
-Flexibilidad de fechas: ±{flexibilidad} días
-Tipo de viaje: {tipo_grupo}
-Clima preferido: {clima}
-Temperatura deseada: {temperatura}°C
-Tipo de destino: {tipos}
-    """.strip()
-    
-    return texto_detallado
-
-
-def seccion_modo_detallado():
-    """Muestra la sección del modo detallado."""
-    precio_max, duracion, temperatura, flexibilidad, mes, tipo_grupo, clima, tipo_destino = obtener_parametros_modo_detallado()
+    if imagen:
+        st.image(imagen, caption="Tu imagen de inspiración", use_container_width=True)
 
     if st.button("✨ Encontrar mi destino ideal"):
-        texto_detallado = construir_texto_modo_detallado(
-            precio_max, duracion, temperatura, flexibilidad, mes, tipo_grupo, clima, tipo_destino
-        )
-        ejecutar_backend(texto_detallado)
+        if not imagen:
+            st.warning("Sube una imagen primero.")
+        else:
+            ejecutar_backend("Analiza esta imagen y recomienda un destino de viaje similar.", imagen)
 
 
 def seccion_ia():
@@ -445,9 +377,9 @@ def seccion_ia():
     st.write("")
 
     if not st.session_state.modo_detallado:
-        seccion_modo_libre()
+        seccion_modo_texto()
     else:
-        seccion_modo_detallado()
+        seccion_modo_imagen()
 
     st.divider()
 
