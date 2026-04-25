@@ -248,6 +248,8 @@ def st_airplanes():
 def obtener_respuesta_ia(texto_usuario, _config_params=None):
     # _config_params permite invalidar cache cuando cambie configuración relevante.
     try:
+        # Activar modo fiesta mientras procesa
+        st_airplanes()
         respuesta = generar_respuesta_chatbot(texto_usuario)
         if "429" in respuesta or "cuota disponible" in respuesta.lower():
             return "Lo siento, la IA esta temporalmente en limite de cuota. Intentalo de nuevo en un minuto."
@@ -259,6 +261,8 @@ def obtener_respuesta_ia(texto_usuario, _config_params=None):
 @st.cache_data(show_spinner="Analizando imagen con IA...")
 def obtener_respuesta_ia_imagen(image_bytes, mime_type, texto_usuario="", _config_params=None):
     try:
+        # Activar modo fiesta mientras procesa
+        st_airplanes()
         respuesta = generar_respuesta_imagen_chatbot(image_bytes, mime_type, texto_usuario)
         if "429" in respuesta or "cuota disponible" in respuesta.lower():
             return "Lo siento, la IA esta temporalmente en limite de cuota. Intentalo de nuevo en un minuto."
