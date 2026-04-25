@@ -161,6 +161,39 @@ def aplicar_estilos(clima="Sin preferencia"):
         .stTextArea textarea::placeholder {{
             color: #9ba3b8 !important;
         }}
+        /* Estilos para bloque de código */
+        [data-testid="stCode"] {{
+            background-color: #1a1d27 !important;
+        }}
+        [data-testid="stCode"] pre {{
+            background-color: #1a1d27 !important;
+            color: #fafafa !important;
+        }}
+        [data-testid="stCode"] code {{
+            background-color: #1a1d27 !important;
+            color: #fafafa !important;
+        }}
+        .hljs {{
+            background-color: #1a1d27 !important;
+            color: #fafafa !important;
+        }}
+        /* Estilos para spinner/loader */
+        .stSpinner {{
+            color: #fafafa !important;
+        }}
+        [data-testid="stSpinner"] {{
+            color: #fafafa !important;
+        }}
+        .element-container [role="status"] {{
+            color: #fafafa !important;
+        }}
+        /* Spinner SVG */
+        .stSpinner svg {{
+            stroke: #fafafa !important;
+        }}
+        [role="status"] svg {{
+            stroke: #fafafa !important;
+        }}
         </style>
         """, unsafe_allow_html=True)
 
