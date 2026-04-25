@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from backend.prompts import TEXT_PROMPT_DEFAULT, IMAGE_PROMPT_TEMPLATE
+from backend.clips_bridge import run_clips_from_preferences_json
 
 
 def cargar_configuracion():
@@ -108,6 +109,11 @@ def generar_respuesta_imagen_chatbot(image_bytes: bytes, mime_type: str, user_te
         types.Part.from_bytes(data=image_bytes, mime_type=mime_type or "image/jpeg"),
     ]
     return _consultar_gemini(contents)
+
+
+def generar_recomendacion_clips_desde_json(preferences_json: str) -> str:
+    """Bridge backend: JSON preferences -> CLIPS output."""
+    return run_clips_from_preferences_json(preferences_json)
 
 
 if __name__ == "__main__":

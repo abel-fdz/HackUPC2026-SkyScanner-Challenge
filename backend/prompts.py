@@ -10,6 +10,10 @@ TEXT_PROMPT_DEFAULT = (
     '"trip_type": null,'
     '"preferred_climate": null,'
     '"preferred_temperature": null,'
+    '"origin_latitude": null,'
+    '"origin_longitude": null,'
+    '"preferred_continent": null,'
+    '"proximity_preference": null,'
     '"needs_beach": null,'
     '"needs_mountains": null,'
     '"needs_nature_green_spaces": null,'
@@ -24,13 +28,16 @@ TEXT_PROMPT_DEFAULT = (
     "2) travel_month: entero del 1 al 12. "
     "3) trip_duration_days: entero positivo. "
     "4) date_flexibility: uno de ['none','few_days','weeks']. "
-    "5) trip_type: uno de ['adventure','relaxation','cultural','romantic','family','business'] segun lo que puedas inferir de la imagen y el contexto del usuario."
-    "6) preferred_climate: uno de ['dry','humid','tropical','temperate','cold','any'] segun lo que puedas inferir de la imagen y el contexto del usuario.. "
-    "7) preferred_temperature: uno de ['hot','mild','cold','any'] segun lo que puedas inferir de la imagen y el contexto del usuario.. "
-    "8) preferred_population_type: uno de ['major_city','city','rural','any'] segun lo que puedas inferir de la imagen y el contexto del usuario.."
-    "9) Campos needs_* e interested_* deben ser booleanos true/false. "
-    "10) Si no hay informacion suficiente para un campo, usa null. "
-    "11) No inventes datos."
+    "5) trip_type: uno de ['adventure','relaxation','cultural','romantic','family','business']. "
+    "6) preferred_climate: uno de ['dry','humid','tropical','temperate','cold','any']. "
+    "7) preferred_temperature: uno de ['hot','mild','cold','any']. "
+    "8) origin_latitude y origin_longitude: numeros flotantes (si no se conocen, null). "
+    "9) preferred_continent: uno de ['europe','asia','africa','north_america','south_america','oceania','any']. "
+    "10) proximity_preference: uno de ['near','far','any']. "
+    "11) preferred_population_type: uno de ['major_city','city','rural','any']. "
+    "12) Campos needs_* e interested_* deben ser booleanos true/false. "
+    "13) Si no hay informacion suficiente para un campo, usa null. "
+    "14) No inventes datos."
 )
 
 
@@ -48,6 +55,10 @@ IMAGE_PROMPT_TEMPLATE = (
     '"trip_type": null,'
     '"preferred_climate": null,'
     '"preferred_temperature": null,'
+    '"origin_latitude": null,'
+    '"origin_longitude": null,'
+    '"preferred_continent": null,'
+    '"proximity_preference": null,'
     '"needs_beach": null,'
     '"needs_mountains": null,'
     '"needs_nature_green_spaces": null,'
@@ -65,9 +76,12 @@ IMAGE_PROMPT_TEMPLATE = (
     "5) trip_type: uno de ['adventure','relaxation','cultural','romantic','family','business']. "
     "6) preferred_climate: uno de ['dry','humid','tropical','temperate','cold','any']. "
     "7) preferred_temperature: uno de ['hot','mild','cold','any']. "
-    "8) preferred_population_type: uno de ['major_city','city','rural','any']. "
-    "9) Campos needs_* e interested_* deben ser booleanos true/false. "
-    "10) Si no hay informacion suficiente para un campo, usa null. "
-    "11) No inventes datos. "
+    "8) origin_latitude y origin_longitude: numeros flotantes (si no se conocen, null). "
+    "9) preferred_continent: uno de ['europe','asia','africa','north_america','south_america','oceania','any']. "
+    "10) proximity_preference: uno de ['near','far','any']. "
+    "11) preferred_population_type: uno de ['major_city','city','rural','any']. "
+    "12) Campos needs_* e interested_* deben ser booleanos true/false. "
+    "13) Si no hay informacion suficiente para un campo, usa null. "
+    "14) No inventes datos. "
     "Helper text/contexto del usuario: {contexto_usuario}"
 )

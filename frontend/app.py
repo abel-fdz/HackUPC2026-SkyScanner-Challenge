@@ -11,6 +11,7 @@ if str(PROJECT_ROOT) not in sys.path:
 from backend.app import (
     generar_respuesta_chatbot,
     generar_respuesta_imagen_chatbot,
+    generar_recomendacion_clips_desde_json,
 )
 
 
@@ -259,6 +260,14 @@ def obtener_respuesta_ia(texto_usuario, _config_params=None):
         return f"Error inesperado al consultar la IA: {exc}"
 
 
+@st.cache_data(show_spinner="Ejecutando motor CLIPS...")
+def obtener_salida_clips(preferences_json, _config_params=None):
+    try:
+        return generar_recomendacion_clips_desde_json(preferences_json)
+    except Exception as exc:
+        return f"Error inesperado al ejecutar CLIPS: {exc}"
+
+
 @st.cache_data(show_spinner="Analizando imagen con IA...")
 def obtener_respuesta_ia_imagen(image_bytes, mime_type, texto_usuario="", _config_params=None):
     try:
@@ -339,6 +348,13 @@ def seccion_modo_texto():
                 st.markdown(respuesta)
                 st.session_state.ultima_respuesta_texto = respuesta
 
+            with st.expander("🧠 CLIPS recommendations", expanded=False):
+                clips_output = obtener_salida_clips(
+                    respuesta,
+                    _config_params={"modo": "texto"},
+                )
+                st.code(clips_output, language="text")
+
             st.session_state.messages.append({"role": "assistant", "content": respuesta})
 
     if st.button("🗑️ Limpiar conversación"):
@@ -383,6 +399,12 @@ def seccion_modo_imagen():
     if st.session_state.respuesta_ia_imagen:
         st.success("Analisis completado")
         st.code(st.session_state.respuesta_ia_imagen, language="json")
+        with st.expander("🧠 CLIPS recommendations", expanded=False):
+            clips_output = obtener_salida_clips(
+                st.session_state.respuesta_ia_imagen,
+                _config_params={"modo": "imagen"},
+            )
+            st.code(clips_output, language="text")
 
 def seccion_ia():
     """Maneja la sección de IA con modos libre y detallado."""
