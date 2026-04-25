@@ -1,9 +1,14 @@
 import streamlit as st
 import streamlit.components.v1 as components
-import subprocess
 import sys
 from pathlib import Path
 from datetime import date, timedelta
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.append(str(PROJECT_ROOT))
+
+from backend.app import generar_respuesta_chatbot
 
 # --- CONFIGURACIÓN DE LA PÁGINA ---
 st.set_page_config(page_title="SkyScanner Dream Destiny", page_icon="✈️", layout="centered")
@@ -54,27 +59,16 @@ def st_airplanes():
     </script>
     """, height=0)
 
-def mi_funcion_provisional(texto):
-    backend_script = Path(__file__).parent.parent / "backend" / "proceso.py"
-    if not backend_script.exists():
-        st.error(f"Archivo no encontrado en: {backend_script}")
-        return
-    with st.spinner("Procesando..."):
-        result = subprocess.run(
-            [sys.executable, str(backend_script), texto],
-            capture_output=True, text=True, encoding='utf-8'
-        )
-    if result.returncode == 0:
-        st.success("¡Proceso ejecutado!")
-        if result.stdout:
-            st.code(result.stdout, language="text")
-        else:
-            st.warning("stdout vacío.")
-        if result.stderr:
-            st.info(result.stderr)
-    else:
-        st.error(f"Error código {result.returncode}")
-        st.code(result.stderr)
+@st.cache_data(show_spinner="Consultando a nuestro experto...")
+def obtener_respuesta_ia(texto_usuario, _config_params=None):
+    # _config_params permite invalidar cache cuando cambie configuración relevante.
+    try:
+        respuesta = generar_respuesta_chatbot(texto_usuario)
+        if "429" in respuesta or "cuota disponible" in respuesta.lower():
+            return "Lo siento, la IA esta temporalmente en limite de cuota. Intentalo de nuevo en un minuto."
+        return respuesta
+    except Exception as exc:
+        return f"Error inesperado al consultar la IA: {exc}"
 
 # --- ESTILOS ---
 st.markdown("""
@@ -177,16 +171,42 @@ st.write("")
 
 # --- MODO LIBRE ---
 if not st.session_state.modo_detallado:
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
     user_text = st.text_area(
         label="¿Cómo imaginas tu viaje perfecto?",
-        placeholder="Ej: Quiero un viaje de 10 días con mi pareja, me gustan las playas tranquilas, la buena comida y no quiero gastar más de 2000€ por persona...",
-        height=200
+        placeholder=(
+            "Ej: Quiero un viaje de 10 días con mi pareja, me gustan las playas "
+            "tranquilas, la buena comida y no quiero gastar más de 2000 EUR por persona..."
+        ),
+        height=200,
     )
+
     if st.button("✨ Encontrar mi destino ideal"):
         if not user_text.strip():
             st.warning("Cuéntanos algo sobre tu viaje ideal primero.")
         else:
-            mi_funcion_provisional(user_text)
+            st.session_state.messages.append({"role": "user", "content": user_text})
+            with st.chat_message("user"):
+                st.markdown(user_text)
+
+            with st.chat_message("assistant"):
+                respuesta = obtener_respuesta_ia(
+                    user_text,
+                    _config_params={"modo": "libre"},
+                )
+                st.markdown(respuesta)
+
+            st.session_state.messages.append({"role": "assistant", "content": respuesta})
+
+    if st.button("🗑️ Limpiar conversación"):
+        st.session_state.messages = []
+        st.rerun()
 
 # --- MODO DETALLADO ---
 else:
@@ -232,6 +252,12 @@ Temperatura deseada: {temperatura}°C
 Tipo de destino: {tipos}
         """.strip()
 
-        mi_funcion_provisional(texto_detallado)
+        with st.spinner("Procesando..."):
+            respuesta_detallado = obtener_respuesta_ia(
+                texto_detallado,
+                _config_params={"modo": "detallado"},
+            )
+        st.success("¡Proceso ejecutado!")
+        st.markdown(respuesta_detallado)
 
 st.divider()
