@@ -147,21 +147,38 @@
 )
 
 (defclass Offer "Destination offers"
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+
     (slot price
         (type INTEGER)
         (create-accessor read-write))
-
     (slot duration
         (type INTEGER)
         (create-accessor read-write))
-
-    ;;; Location of the destination
     (slot Destination
         (type INSTANCE)
         (create-accessor read-write))
-    
+
+    ;;; Abstraction results - binary features
+    (slot beach-ok      (type SYMBOL) (create-accessor read-write))
+    (slot mountain-ok   (type SYMBOL) (create-accessor read-write))
+    (slot culture-ok    (type SYMBOL) (create-accessor read-write))
+    (slot party-ok      (type SYMBOL) (create-accessor read-write))
+    (slot activities-ok (type SYMBOL) (create-accessor read-write))
+    (slot history-ok    (type SYMBOL) (create-accessor read-write))
+    (slot nature-ok     (type SYMBOL) (create-accessor read-write))
+
+    ;;; Abstraction results - graded features
     (slot climate-ok     (type SYMBOL) (create-accessor read-write))
     (slot temperature-ok (type SYMBOL) (create-accessor read-write))
     (slot population-ok  (type SYMBOL) (create-accessor read-write))
     (slot duration-ok    (type SYMBOL) (create-accessor read-write))
+
+    ;;; Heuristic slots
+    (slot score      (type FLOAT)   (create-accessor read-write))
+    (slot grade      (type SYMBOL)  (create-accessor read-write))
+    (slot priceLevel (type SYMBOL)  (create-accessor read-write))
+    (slot travelTime (type FLOAT)   (create-accessor read-write))
 )

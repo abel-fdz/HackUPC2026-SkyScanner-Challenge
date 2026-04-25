@@ -208,13 +208,13 @@
             (bind ?price (readline))
             (if (neq ?price "")
                 then
-                    (send [offers-filter] put-price (integer ?price))
+                    (send [offers-filter] put-price (integer (string-to-field ?price)))
             )
             (printout t "Offer duration (days) [any]: ")
             (bind ?duration (readline))
             (if (neq ?duration "")
                 then
-                    (send [offers-filter] put-duration (integer ?duration))
+                    (send [offers-filter] put-duration (integer (string-to-field ?duration)))
             )
             (printout t "Offers filter created." crlf)
         else

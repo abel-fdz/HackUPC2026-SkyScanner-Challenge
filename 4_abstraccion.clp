@@ -1,6 +1,6 @@
 ;;; Módulo de abstracción: deriva características y evalúa ofertas
 
-(defmodule abstraccion
+(defmodule abstraction
     (import MAIN ?ALL)
     (export ?ALL)
 )

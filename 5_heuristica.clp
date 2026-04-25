@@ -34,7 +34,8 @@
 ; Beach preference
 (defrule heuristic::score-beach
     (object (is-a Demand) (needBeach TRUE))
-    ?of <- (object (is-a Offer) (hasBeach TRUE))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasBeach TRUE))
     =>
     (bind ?new (+ (send ?of get-score) 25))
     (send ?of put-score ?new)

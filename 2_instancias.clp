@@ -1,22 +1,22 @@
 (definstances instancies-generades
     ;;; --- LOCALITZACIONS ADDICIONALS ---
-    ([loc501] of Localizacion (direccion "Carrer de Balmes 450") (distrito "Sarria-Sant Gervasi") (longitud 2.1384) (latitud 41.4112))
-    ([loc502] of Localizacion (direccion "Avinguda Meridiana 120") (distrito "Sant Andreu") (longitud 2.1856) (latitud 41.4190))
-    ([loc503] of Localizacion (direccion "Carrer de la Marina 200") (distrito "Eixample") (longitud 2.1821) (latitud 41.4012))
-    ([loc504] of Localizacion (direccion "Gran Via 580") (distrito "Eixample") (longitud 2.1630) (latitud 41.3850))
-    ([loc505] of Localizacion (direccion "Carrer de Sants 30") (distrito "Sants-Montjuic") (longitud 2.1412) (latitud 41.3755))
-    ([loc506] of Localizacion (direccion "Passeig de Gracia 92") (distrito "Eixample") (longitud 2.1610) (latitud 41.3920))
-    ([loc507] of Localizacion (direccion "Carrer de Mallorca 350") (distrito "Eixample") (longitud 2.1705) (latitud 41.3988))
-    ([loc508] of Localizacion (direccion "Carrer de Piquer 12") (distrito "Sants-Montjuic") (longitud 2.1690) (latitud 41.3721))
-    ([loc509] of Localizacion (direccion "Rambla del Poblenou 45") (distrito "Sant Marti") (longitud 2.2012) (latitud 41.4005))
-    ([loc510] of Localizacion (direccion "Travessera de les Corts 150") (distrito "Les Corts") (longitud 2.1255) (latitud 41.3833))
+    ([loc501] of Location (direccion "Carrer de Balmes 450") (distrito "Sarria-Sant Gervasi") (longitud 2.1384) (latitud 41.4112))
+    ([loc502] of Location (direccion "Avinguda Meridiana 120") (distrito "Sant Andreu") (longitud 2.1856) (latitud 41.4190))
+    ([loc503] of Location (direccion "Carrer de la Marina 200") (distrito "Eixample") (longitud 2.1821) (latitud 41.4012))
+    ([loc504] of Location (direccion "Gran Via 580") (distrito "Eixample") (longitud 2.1630) (latitud 41.3850))
+    ([loc505] of Location (direccion "Carrer de Sants 30") (distrito "Sants-Montjuic") (longitud 2.1412) (latitud 41.3755))
+    ([loc506] of Location (direccion "Passeig de Gracia 92") (distrito "Eixample") (longitud 2.1610) (latitud 41.3920))
+    ([loc507] of Location (direccion "Carrer de Mallorca 350") (distrito "Eixample") (longitud 2.1705) (latitud 41.3988))
+    ([loc508] of Location (direccion "Carrer de Piquer 12") (distrito "Sants-Montjuic") (longitud 2.1690) (latitud 41.3721))
+    ([loc509] of Location (direccion "Rambla del Poblenou 45") (distrito "Sant Marti") (longitud 2.2012) (latitud 41.4005))
+    ([loc510] of Location (direccion "Travessera de les Corts 150") (distrito "Les Corts") (longitud 2.1255) (latitud 41.3833))
 
     ;;; --- SERVEIS (Exemples de Col·legis i altres) ---
-    ([serv_cole501] of Servicio (tipoServicio COLEGIO) (localizacion [loc501]))
-    ([serv_cole502] of Servicio (tipoServicio COLEGIO) (localizacion [loc502]))
-    ([serv_hosp501] of Servicio (tipoServicio HOSPITAL) (localizacion [loc504]))
-    ([serv_supe501] of Servicio (tipoServicio SUPERMERCADO) (localizacion [loc505]))
-    ([serv_gym501] of Servicio (tipoServicio GIMNASIO) (localizacion [loc509]))
+    ([serv_cole501] of Servicio (tipoServicio COLEGIO) (location [loc501]))
+    ([serv_cole502] of Servicio (tipoServicio COLEGIO) (location [loc502]))
+    ([serv_hosp501] of Servicio (tipoServicio HOSPITAL) (location [loc504]))
+    ([serv_supe501] of Servicio (tipoServicio SUPERMERCADO) (location [loc505]))
+    ([serv_gym501] of Servicio (tipoServicio GIMNASIO) (location [loc509]))
 
     ;;; --- VIVENDES ---
     ([viv501] of Vivienda 

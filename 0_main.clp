@@ -9,6 +9,6 @@
 (load "7_salida.clp")
 
 (reset)
-(focus entrada)
+(focus input)
 (run)
 (exit)
