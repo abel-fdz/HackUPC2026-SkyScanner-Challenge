@@ -62,6 +62,33 @@ COLORES_CLIMA = {
 def configurar_pagina():
     """Configura los parámetros básicos de la página Streamlit."""
     st.set_page_config(page_title="SkyScanner Dream Destiny", page_icon="✈️", layout="centered")
+    st.markdown("""
+        <style>
+        /* Fondo de la aplicación principal */
+        .stApp {
+            background-color: #0e1117 !important;
+            color: #fafafa !important;
+        }
+        
+        /* Fondo de la barra lateral */
+        [data-testid="stSidebar"] {
+            background-color: #262730 !important;
+        }
+        
+        /* Asegurar que el texto sea legible */
+        h1, h2, h3, p, label {
+            color: #fafafa !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    # Inyectar CSS para ocultar el menú de opciones y la marca de agua
+    st.markdown("""
+        <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        </style>
+        """, unsafe_allow_html=True)
     
 
 def aplicar_estilos(clima="Sin preferencia"):
@@ -73,10 +100,38 @@ def aplicar_estilos(clima="Sin preferencia"):
         }}
         .stTextArea textarea {{
             border-radius: 30px !important;
-            border: 2px solid #ff4b4b !important;
+            border: 1px solid #3d4050 !important;
             padding: 20px !important;
         }}
-        .stButton button {{ border-radius: 20px; width: 100%; font-weight: bold; }}
+        .stTextArea textarea:focus {{
+            border-color: #3d4050 !important;
+            box-shadow: none !important;
+        }}
+        /* Ocultar el mensaje "Press Ctrl+Enter" */
+        .stTextArea [data-testid="InputInstructions"] {{
+            display: none !important;
+        }}
+        .stButton button {{
+            border-radius: 20px;
+            width: 100%;
+            font-weight: bold;
+            background-color: #1a1d27 !important;
+            color: #fafafa !important;
+            border: 1px solid #3d4050 !important;
+        }}
+        .stButton button:hover {{
+            background-color: #2d3144 !important;
+            border-color: #6b7280 !important;
+        }}
+        [data-testid="stFileUploaderDropzone"] {{
+            background-color: #1a1d27 !important;
+            border-color: #3d4050 !important;
+        }}
+        [data-testid="stFileUploaderDropzone"] button {{
+            background-color: #2d3144 !important;
+            color: #9ba3b8 !important;
+            border: 1px solid #3d4050 !important;
+        }}
         .destino-card {{
             background-color: #f9f9f9; border-radius: 16px;
             padding: 16px; text-align: center; border: 1px solid #e0e0e0;
