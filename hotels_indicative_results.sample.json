@@ -1,0 +1,3570 @@
+{
+  "meta": {
+    "endpoint": "https://partners.api.skyscanner.net/apiservices/v1/hotels/indicative/search",
+    "input": "2_instancias.clp",
+    "year": 2026,
+    "nights": 7,
+    "market": "ES",
+    "locale": "es-ES",
+    "currency": "EUR",
+    "adults": 2,
+    "rooms": 1,
+    "dry_run": true,
+    "destinations_count": 8,
+    "months_per_destination": 12
+  },
+  "results": [
+    {
+      "destination_instance": "dest-barcelona",
+      "destination_slug": "barcelona",
+      "location_instance": "loc-barcelona",
+      "month": 1,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Spain",
+            "coordinates": {
+              "latitude": 41.3851,
+              "longitude": 2.1734
+            },
+            "district": "Barcelona"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-barcelona",
+      "destination_slug": "barcelona",
+      "location_instance": "loc-barcelona",
+      "month": 2,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Spain",
+            "coordinates": {
+              "latitude": 41.3851,
+              "longitude": 2.1734
+            },
+            "district": "Barcelona"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-barcelona",
+      "destination_slug": "barcelona",
+      "location_instance": "loc-barcelona",
+      "month": 3,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Spain",
+            "coordinates": {
+              "latitude": 41.3851,
+              "longitude": 2.1734
+            },
+            "district": "Barcelona"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-barcelona",
+      "destination_slug": "barcelona",
+      "location_instance": "loc-barcelona",
+      "month": 4,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Spain",
+            "coordinates": {
+              "latitude": 41.3851,
+              "longitude": 2.1734
+            },
+            "district": "Barcelona"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-barcelona",
+      "destination_slug": "barcelona",
+      "location_instance": "loc-barcelona",
+      "month": 5,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Spain",
+            "coordinates": {
+              "latitude": 41.3851,
+              "longitude": 2.1734
+            },
+            "district": "Barcelona"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-barcelona",
+      "destination_slug": "barcelona",
+      "location_instance": "loc-barcelona",
+      "month": 6,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Spain",
+            "coordinates": {
+              "latitude": 41.3851,
+              "longitude": 2.1734
+            },
+            "district": "Barcelona"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-barcelona",
+      "destination_slug": "barcelona",
+      "location_instance": "loc-barcelona",
+      "month": 7,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Spain",
+            "coordinates": {
+              "latitude": 41.3851,
+              "longitude": 2.1734
+            },
+            "district": "Barcelona"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-barcelona",
+      "destination_slug": "barcelona",
+      "location_instance": "loc-barcelona",
+      "month": 8,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Spain",
+            "coordinates": {
+              "latitude": 41.3851,
+              "longitude": 2.1734
+            },
+            "district": "Barcelona"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-barcelona",
+      "destination_slug": "barcelona",
+      "location_instance": "loc-barcelona",
+      "month": 9,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Spain",
+            "coordinates": {
+              "latitude": 41.3851,
+              "longitude": 2.1734
+            },
+            "district": "Barcelona"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-barcelona",
+      "destination_slug": "barcelona",
+      "location_instance": "loc-barcelona",
+      "month": 10,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Spain",
+            "coordinates": {
+              "latitude": 41.3851,
+              "longitude": 2.1734
+            },
+            "district": "Barcelona"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-barcelona",
+      "destination_slug": "barcelona",
+      "location_instance": "loc-barcelona",
+      "month": 11,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Spain",
+            "coordinates": {
+              "latitude": 41.3851,
+              "longitude": 2.1734
+            },
+            "district": "Barcelona"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-barcelona",
+      "destination_slug": "barcelona",
+      "location_instance": "loc-barcelona",
+      "month": 12,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Spain",
+            "coordinates": {
+              "latitude": 41.3851,
+              "longitude": 2.1734
+            },
+            "district": "Barcelona"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-lisbon",
+      "destination_slug": "lisbon",
+      "location_instance": "loc-lisbon",
+      "month": 1,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Portugal",
+            "coordinates": {
+              "latitude": 38.7223,
+              "longitude": -9.1393
+            },
+            "district": "Lisbon"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-lisbon",
+      "destination_slug": "lisbon",
+      "location_instance": "loc-lisbon",
+      "month": 2,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Portugal",
+            "coordinates": {
+              "latitude": 38.7223,
+              "longitude": -9.1393
+            },
+            "district": "Lisbon"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-lisbon",
+      "destination_slug": "lisbon",
+      "location_instance": "loc-lisbon",
+      "month": 3,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Portugal",
+            "coordinates": {
+              "latitude": 38.7223,
+              "longitude": -9.1393
+            },
+            "district": "Lisbon"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-lisbon",
+      "destination_slug": "lisbon",
+      "location_instance": "loc-lisbon",
+      "month": 4,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Portugal",
+            "coordinates": {
+              "latitude": 38.7223,
+              "longitude": -9.1393
+            },
+            "district": "Lisbon"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-lisbon",
+      "destination_slug": "lisbon",
+      "location_instance": "loc-lisbon",
+      "month": 5,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Portugal",
+            "coordinates": {
+              "latitude": 38.7223,
+              "longitude": -9.1393
+            },
+            "district": "Lisbon"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-lisbon",
+      "destination_slug": "lisbon",
+      "location_instance": "loc-lisbon",
+      "month": 6,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Portugal",
+            "coordinates": {
+              "latitude": 38.7223,
+              "longitude": -9.1393
+            },
+            "district": "Lisbon"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-lisbon",
+      "destination_slug": "lisbon",
+      "location_instance": "loc-lisbon",
+      "month": 7,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Portugal",
+            "coordinates": {
+              "latitude": 38.7223,
+              "longitude": -9.1393
+            },
+            "district": "Lisbon"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-lisbon",
+      "destination_slug": "lisbon",
+      "location_instance": "loc-lisbon",
+      "month": 8,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Portugal",
+            "coordinates": {
+              "latitude": 38.7223,
+              "longitude": -9.1393
+            },
+            "district": "Lisbon"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-lisbon",
+      "destination_slug": "lisbon",
+      "location_instance": "loc-lisbon",
+      "month": 9,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Portugal",
+            "coordinates": {
+              "latitude": 38.7223,
+              "longitude": -9.1393
+            },
+            "district": "Lisbon"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-lisbon",
+      "destination_slug": "lisbon",
+      "location_instance": "loc-lisbon",
+      "month": 10,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Portugal",
+            "coordinates": {
+              "latitude": 38.7223,
+              "longitude": -9.1393
+            },
+            "district": "Lisbon"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-lisbon",
+      "destination_slug": "lisbon",
+      "location_instance": "loc-lisbon",
+      "month": 11,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Portugal",
+            "coordinates": {
+              "latitude": 38.7223,
+              "longitude": -9.1393
+            },
+            "district": "Lisbon"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-lisbon",
+      "destination_slug": "lisbon",
+      "location_instance": "loc-lisbon",
+      "month": 12,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Portugal",
+            "coordinates": {
+              "latitude": 38.7223,
+              "longitude": -9.1393
+            },
+            "district": "Lisbon"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-reykjavik",
+      "destination_slug": "reykjavik",
+      "location_instance": "loc-reykjavik",
+      "month": 1,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Iceland",
+            "coordinates": {
+              "latitude": 64.1466,
+              "longitude": -21.9426
+            },
+            "district": "Midborg"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-reykjavik",
+      "destination_slug": "reykjavik",
+      "location_instance": "loc-reykjavik",
+      "month": 2,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Iceland",
+            "coordinates": {
+              "latitude": 64.1466,
+              "longitude": -21.9426
+            },
+            "district": "Midborg"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-reykjavik",
+      "destination_slug": "reykjavik",
+      "location_instance": "loc-reykjavik",
+      "month": 3,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Iceland",
+            "coordinates": {
+              "latitude": 64.1466,
+              "longitude": -21.9426
+            },
+            "district": "Midborg"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-reykjavik",
+      "destination_slug": "reykjavik",
+      "location_instance": "loc-reykjavik",
+      "month": 4,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Iceland",
+            "coordinates": {
+              "latitude": 64.1466,
+              "longitude": -21.9426
+            },
+            "district": "Midborg"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-reykjavik",
+      "destination_slug": "reykjavik",
+      "location_instance": "loc-reykjavik",
+      "month": 5,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Iceland",
+            "coordinates": {
+              "latitude": 64.1466,
+              "longitude": -21.9426
+            },
+            "district": "Midborg"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-reykjavik",
+      "destination_slug": "reykjavik",
+      "location_instance": "loc-reykjavik",
+      "month": 6,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Iceland",
+            "coordinates": {
+              "latitude": 64.1466,
+              "longitude": -21.9426
+            },
+            "district": "Midborg"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-reykjavik",
+      "destination_slug": "reykjavik",
+      "location_instance": "loc-reykjavik",
+      "month": 7,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Iceland",
+            "coordinates": {
+              "latitude": 64.1466,
+              "longitude": -21.9426
+            },
+            "district": "Midborg"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-reykjavik",
+      "destination_slug": "reykjavik",
+      "location_instance": "loc-reykjavik",
+      "month": 8,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Iceland",
+            "coordinates": {
+              "latitude": 64.1466,
+              "longitude": -21.9426
+            },
+            "district": "Midborg"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-reykjavik",
+      "destination_slug": "reykjavik",
+      "location_instance": "loc-reykjavik",
+      "month": 9,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Iceland",
+            "coordinates": {
+              "latitude": 64.1466,
+              "longitude": -21.9426
+            },
+            "district": "Midborg"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-reykjavik",
+      "destination_slug": "reykjavik",
+      "location_instance": "loc-reykjavik",
+      "month": 10,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Iceland",
+            "coordinates": {
+              "latitude": 64.1466,
+              "longitude": -21.9426
+            },
+            "district": "Midborg"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-reykjavik",
+      "destination_slug": "reykjavik",
+      "location_instance": "loc-reykjavik",
+      "month": 11,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Iceland",
+            "coordinates": {
+              "latitude": 64.1466,
+              "longitude": -21.9426
+            },
+            "district": "Midborg"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-reykjavik",
+      "destination_slug": "reykjavik",
+      "location_instance": "loc-reykjavik",
+      "month": 12,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Iceland",
+            "coordinates": {
+              "latitude": 64.1466,
+              "longitude": -21.9426
+            },
+            "district": "Midborg"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-marrakech",
+      "destination_slug": "marrakech",
+      "location_instance": "loc-marrakech",
+      "month": 1,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Morocco",
+            "coordinates": {
+              "latitude": 31.6295,
+              "longitude": -7.9811
+            },
+            "district": "Medina"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-marrakech",
+      "destination_slug": "marrakech",
+      "location_instance": "loc-marrakech",
+      "month": 2,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Morocco",
+            "coordinates": {
+              "latitude": 31.6295,
+              "longitude": -7.9811
+            },
+            "district": "Medina"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-marrakech",
+      "destination_slug": "marrakech",
+      "location_instance": "loc-marrakech",
+      "month": 3,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Morocco",
+            "coordinates": {
+              "latitude": 31.6295,
+              "longitude": -7.9811
+            },
+            "district": "Medina"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-marrakech",
+      "destination_slug": "marrakech",
+      "location_instance": "loc-marrakech",
+      "month": 4,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Morocco",
+            "coordinates": {
+              "latitude": 31.6295,
+              "longitude": -7.9811
+            },
+            "district": "Medina"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-marrakech",
+      "destination_slug": "marrakech",
+      "location_instance": "loc-marrakech",
+      "month": 5,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Morocco",
+            "coordinates": {
+              "latitude": 31.6295,
+              "longitude": -7.9811
+            },
+            "district": "Medina"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-marrakech",
+      "destination_slug": "marrakech",
+      "location_instance": "loc-marrakech",
+      "month": 6,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Morocco",
+            "coordinates": {
+              "latitude": 31.6295,
+              "longitude": -7.9811
+            },
+            "district": "Medina"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-marrakech",
+      "destination_slug": "marrakech",
+      "location_instance": "loc-marrakech",
+      "month": 7,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Morocco",
+            "coordinates": {
+              "latitude": 31.6295,
+              "longitude": -7.9811
+            },
+            "district": "Medina"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-marrakech",
+      "destination_slug": "marrakech",
+      "location_instance": "loc-marrakech",
+      "month": 8,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Morocco",
+            "coordinates": {
+              "latitude": 31.6295,
+              "longitude": -7.9811
+            },
+            "district": "Medina"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-marrakech",
+      "destination_slug": "marrakech",
+      "location_instance": "loc-marrakech",
+      "month": 9,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Morocco",
+            "coordinates": {
+              "latitude": 31.6295,
+              "longitude": -7.9811
+            },
+            "district": "Medina"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-marrakech",
+      "destination_slug": "marrakech",
+      "location_instance": "loc-marrakech",
+      "month": 10,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Morocco",
+            "coordinates": {
+              "latitude": 31.6295,
+              "longitude": -7.9811
+            },
+            "district": "Medina"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-marrakech",
+      "destination_slug": "marrakech",
+      "location_instance": "loc-marrakech",
+      "month": 11,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Morocco",
+            "coordinates": {
+              "latitude": 31.6295,
+              "longitude": -7.9811
+            },
+            "district": "Medina"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-marrakech",
+      "destination_slug": "marrakech",
+      "location_instance": "loc-marrakech",
+      "month": 12,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Morocco",
+            "coordinates": {
+              "latitude": 31.6295,
+              "longitude": -7.9811
+            },
+            "district": "Medina"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-bangkok",
+      "destination_slug": "bangkok",
+      "location_instance": "loc-bangkok",
+      "month": 1,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Thailand",
+            "coordinates": {
+              "latitude": 13.7563,
+              "longitude": 100.5018
+            },
+            "district": "Khlong Toei"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-bangkok",
+      "destination_slug": "bangkok",
+      "location_instance": "loc-bangkok",
+      "month": 2,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Thailand",
+            "coordinates": {
+              "latitude": 13.7563,
+              "longitude": 100.5018
+            },
+            "district": "Khlong Toei"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-bangkok",
+      "destination_slug": "bangkok",
+      "location_instance": "loc-bangkok",
+      "month": 3,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Thailand",
+            "coordinates": {
+              "latitude": 13.7563,
+              "longitude": 100.5018
+            },
+            "district": "Khlong Toei"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-bangkok",
+      "destination_slug": "bangkok",
+      "location_instance": "loc-bangkok",
+      "month": 4,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Thailand",
+            "coordinates": {
+              "latitude": 13.7563,
+              "longitude": 100.5018
+            },
+            "district": "Khlong Toei"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-bangkok",
+      "destination_slug": "bangkok",
+      "location_instance": "loc-bangkok",
+      "month": 5,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Thailand",
+            "coordinates": {
+              "latitude": 13.7563,
+              "longitude": 100.5018
+            },
+            "district": "Khlong Toei"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-bangkok",
+      "destination_slug": "bangkok",
+      "location_instance": "loc-bangkok",
+      "month": 6,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Thailand",
+            "coordinates": {
+              "latitude": 13.7563,
+              "longitude": 100.5018
+            },
+            "district": "Khlong Toei"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-bangkok",
+      "destination_slug": "bangkok",
+      "location_instance": "loc-bangkok",
+      "month": 7,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Thailand",
+            "coordinates": {
+              "latitude": 13.7563,
+              "longitude": 100.5018
+            },
+            "district": "Khlong Toei"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-bangkok",
+      "destination_slug": "bangkok",
+      "location_instance": "loc-bangkok",
+      "month": 8,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Thailand",
+            "coordinates": {
+              "latitude": 13.7563,
+              "longitude": 100.5018
+            },
+            "district": "Khlong Toei"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-bangkok",
+      "destination_slug": "bangkok",
+      "location_instance": "loc-bangkok",
+      "month": 9,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Thailand",
+            "coordinates": {
+              "latitude": 13.7563,
+              "longitude": 100.5018
+            },
+            "district": "Khlong Toei"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-bangkok",
+      "destination_slug": "bangkok",
+      "location_instance": "loc-bangkok",
+      "month": 10,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Thailand",
+            "coordinates": {
+              "latitude": 13.7563,
+              "longitude": 100.5018
+            },
+            "district": "Khlong Toei"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-bangkok",
+      "destination_slug": "bangkok",
+      "location_instance": "loc-bangkok",
+      "month": 11,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Thailand",
+            "coordinates": {
+              "latitude": 13.7563,
+              "longitude": 100.5018
+            },
+            "district": "Khlong Toei"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-bangkok",
+      "destination_slug": "bangkok",
+      "location_instance": "loc-bangkok",
+      "month": 12,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Thailand",
+            "coordinates": {
+              "latitude": 13.7563,
+              "longitude": 100.5018
+            },
+            "district": "Khlong Toei"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-vancouver",
+      "destination_slug": "vancouver",
+      "location_instance": "loc-vancouver",
+      "month": 1,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Canada",
+            "coordinates": {
+              "latitude": 49.2827,
+              "longitude": -123.1207
+            },
+            "district": "Downtown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-vancouver",
+      "destination_slug": "vancouver",
+      "location_instance": "loc-vancouver",
+      "month": 2,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Canada",
+            "coordinates": {
+              "latitude": 49.2827,
+              "longitude": -123.1207
+            },
+            "district": "Downtown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-vancouver",
+      "destination_slug": "vancouver",
+      "location_instance": "loc-vancouver",
+      "month": 3,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Canada",
+            "coordinates": {
+              "latitude": 49.2827,
+              "longitude": -123.1207
+            },
+            "district": "Downtown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-vancouver",
+      "destination_slug": "vancouver",
+      "location_instance": "loc-vancouver",
+      "month": 4,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Canada",
+            "coordinates": {
+              "latitude": 49.2827,
+              "longitude": -123.1207
+            },
+            "district": "Downtown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-vancouver",
+      "destination_slug": "vancouver",
+      "location_instance": "loc-vancouver",
+      "month": 5,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Canada",
+            "coordinates": {
+              "latitude": 49.2827,
+              "longitude": -123.1207
+            },
+            "district": "Downtown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-vancouver",
+      "destination_slug": "vancouver",
+      "location_instance": "loc-vancouver",
+      "month": 6,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Canada",
+            "coordinates": {
+              "latitude": 49.2827,
+              "longitude": -123.1207
+            },
+            "district": "Downtown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-vancouver",
+      "destination_slug": "vancouver",
+      "location_instance": "loc-vancouver",
+      "month": 7,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Canada",
+            "coordinates": {
+              "latitude": 49.2827,
+              "longitude": -123.1207
+            },
+            "district": "Downtown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-vancouver",
+      "destination_slug": "vancouver",
+      "location_instance": "loc-vancouver",
+      "month": 8,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Canada",
+            "coordinates": {
+              "latitude": 49.2827,
+              "longitude": -123.1207
+            },
+            "district": "Downtown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-vancouver",
+      "destination_slug": "vancouver",
+      "location_instance": "loc-vancouver",
+      "month": 9,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Canada",
+            "coordinates": {
+              "latitude": 49.2827,
+              "longitude": -123.1207
+            },
+            "district": "Downtown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-vancouver",
+      "destination_slug": "vancouver",
+      "location_instance": "loc-vancouver",
+      "month": 10,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Canada",
+            "coordinates": {
+              "latitude": 49.2827,
+              "longitude": -123.1207
+            },
+            "district": "Downtown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-vancouver",
+      "destination_slug": "vancouver",
+      "location_instance": "loc-vancouver",
+      "month": 11,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Canada",
+            "coordinates": {
+              "latitude": 49.2827,
+              "longitude": -123.1207
+            },
+            "district": "Downtown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-vancouver",
+      "destination_slug": "vancouver",
+      "location_instance": "loc-vancouver",
+      "month": 12,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Canada",
+            "coordinates": {
+              "latitude": 49.2827,
+              "longitude": -123.1207
+            },
+            "district": "Downtown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-cusco",
+      "destination_slug": "cusco",
+      "location_instance": "loc-cusco",
+      "month": 1,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Peru",
+            "coordinates": {
+              "latitude": -13.5319,
+              "longitude": -71.9675
+            },
+            "district": "Cusco Centro"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-cusco",
+      "destination_slug": "cusco",
+      "location_instance": "loc-cusco",
+      "month": 2,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Peru",
+            "coordinates": {
+              "latitude": -13.5319,
+              "longitude": -71.9675
+            },
+            "district": "Cusco Centro"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-cusco",
+      "destination_slug": "cusco",
+      "location_instance": "loc-cusco",
+      "month": 3,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Peru",
+            "coordinates": {
+              "latitude": -13.5319,
+              "longitude": -71.9675
+            },
+            "district": "Cusco Centro"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-cusco",
+      "destination_slug": "cusco",
+      "location_instance": "loc-cusco",
+      "month": 4,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Peru",
+            "coordinates": {
+              "latitude": -13.5319,
+              "longitude": -71.9675
+            },
+            "district": "Cusco Centro"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-cusco",
+      "destination_slug": "cusco",
+      "location_instance": "loc-cusco",
+      "month": 5,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Peru",
+            "coordinates": {
+              "latitude": -13.5319,
+              "longitude": -71.9675
+            },
+            "district": "Cusco Centro"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-cusco",
+      "destination_slug": "cusco",
+      "location_instance": "loc-cusco",
+      "month": 6,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Peru",
+            "coordinates": {
+              "latitude": -13.5319,
+              "longitude": -71.9675
+            },
+            "district": "Cusco Centro"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-cusco",
+      "destination_slug": "cusco",
+      "location_instance": "loc-cusco",
+      "month": 7,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Peru",
+            "coordinates": {
+              "latitude": -13.5319,
+              "longitude": -71.9675
+            },
+            "district": "Cusco Centro"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-cusco",
+      "destination_slug": "cusco",
+      "location_instance": "loc-cusco",
+      "month": 8,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Peru",
+            "coordinates": {
+              "latitude": -13.5319,
+              "longitude": -71.9675
+            },
+            "district": "Cusco Centro"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-cusco",
+      "destination_slug": "cusco",
+      "location_instance": "loc-cusco",
+      "month": 9,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Peru",
+            "coordinates": {
+              "latitude": -13.5319,
+              "longitude": -71.9675
+            },
+            "district": "Cusco Centro"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-cusco",
+      "destination_slug": "cusco",
+      "location_instance": "loc-cusco",
+      "month": 10,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Peru",
+            "coordinates": {
+              "latitude": -13.5319,
+              "longitude": -71.9675
+            },
+            "district": "Cusco Centro"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-cusco",
+      "destination_slug": "cusco",
+      "location_instance": "loc-cusco",
+      "month": 11,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Peru",
+            "coordinates": {
+              "latitude": -13.5319,
+              "longitude": -71.9675
+            },
+            "district": "Cusco Centro"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-cusco",
+      "destination_slug": "cusco",
+      "location_instance": "loc-cusco",
+      "month": 12,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "Peru",
+            "coordinates": {
+              "latitude": -13.5319,
+              "longitude": -71.9675
+            },
+            "district": "Cusco Centro"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-queenstown",
+      "destination_slug": "queenstown",
+      "location_instance": "loc-queenstown",
+      "month": 1,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 1,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "New Zealand",
+            "coordinates": {
+              "latitude": -45.0312,
+              "longitude": 168.6626
+            },
+            "district": "Queenstown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-queenstown",
+      "destination_slug": "queenstown",
+      "location_instance": "loc-queenstown",
+      "month": 2,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 2,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "New Zealand",
+            "coordinates": {
+              "latitude": -45.0312,
+              "longitude": 168.6626
+            },
+            "district": "Queenstown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-queenstown",
+      "destination_slug": "queenstown",
+      "location_instance": "loc-queenstown",
+      "month": 3,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 3,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "New Zealand",
+            "coordinates": {
+              "latitude": -45.0312,
+              "longitude": 168.6626
+            },
+            "district": "Queenstown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-queenstown",
+      "destination_slug": "queenstown",
+      "location_instance": "loc-queenstown",
+      "month": 4,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 4,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "New Zealand",
+            "coordinates": {
+              "latitude": -45.0312,
+              "longitude": 168.6626
+            },
+            "district": "Queenstown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-queenstown",
+      "destination_slug": "queenstown",
+      "location_instance": "loc-queenstown",
+      "month": 5,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 5,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "New Zealand",
+            "coordinates": {
+              "latitude": -45.0312,
+              "longitude": 168.6626
+            },
+            "district": "Queenstown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-queenstown",
+      "destination_slug": "queenstown",
+      "location_instance": "loc-queenstown",
+      "month": 6,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 6,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "New Zealand",
+            "coordinates": {
+              "latitude": -45.0312,
+              "longitude": 168.6626
+            },
+            "district": "Queenstown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-queenstown",
+      "destination_slug": "queenstown",
+      "location_instance": "loc-queenstown",
+      "month": 7,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 7,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "New Zealand",
+            "coordinates": {
+              "latitude": -45.0312,
+              "longitude": 168.6626
+            },
+            "district": "Queenstown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-queenstown",
+      "destination_slug": "queenstown",
+      "location_instance": "loc-queenstown",
+      "month": 8,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 8,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "New Zealand",
+            "coordinates": {
+              "latitude": -45.0312,
+              "longitude": 168.6626
+            },
+            "district": "Queenstown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-queenstown",
+      "destination_slug": "queenstown",
+      "location_instance": "loc-queenstown",
+      "month": 9,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 9,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "New Zealand",
+            "coordinates": {
+              "latitude": -45.0312,
+              "longitude": 168.6626
+            },
+            "district": "Queenstown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-queenstown",
+      "destination_slug": "queenstown",
+      "location_instance": "loc-queenstown",
+      "month": 10,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 10,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "New Zealand",
+            "coordinates": {
+              "latitude": -45.0312,
+              "longitude": 168.6626
+            },
+            "district": "Queenstown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-queenstown",
+      "destination_slug": "queenstown",
+      "location_instance": "loc-queenstown",
+      "month": 11,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 11,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "New Zealand",
+            "coordinates": {
+              "latitude": -45.0312,
+              "longitude": 168.6626
+            },
+            "district": "Queenstown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    },
+    {
+      "destination_instance": "dest-queenstown",
+      "destination_slug": "queenstown",
+      "location_instance": "loc-queenstown",
+      "month": 12,
+      "payload": {
+        "query": {
+          "market": "ES",
+          "locale": "es-ES",
+          "currency": "EUR",
+          "searchCriteria": {
+            "checkInDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 15
+            },
+            "checkOutDate": {
+              "year": 2026,
+              "month": 12,
+              "day": 22
+            },
+            "rooms": 1,
+            "adults": 2
+          },
+          "destination": {
+            "name": "New Zealand",
+            "coordinates": {
+              "latitude": -45.0312,
+              "longitude": 168.6626
+            },
+            "district": "Queenstown"
+          }
+        }
+      },
+      "status_code": null,
+      "response": null
+    }
+  ]
+}

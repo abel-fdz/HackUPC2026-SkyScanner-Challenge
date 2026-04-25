@@ -180,6 +180,9 @@
     (slot duration
         (type INTEGER)
         (create-accessor read-write))
+    (slot month
+        (type INTEGER)
+        (create-accessor read-write))
     (slot Destination
         (type INSTANCE)
         (create-accessor read-write))
