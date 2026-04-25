@@ -14,6 +14,11 @@
    (sqrt (+ (* ?dLat ?dLat) (* ?dLon ?dLon)))
 )
 
+; Distance in kilometers, used by heuristics and output.
+(deffunction distance-km (?lat1 ?lon1 ?lat2 ?lon2)
+   (return (/ (distance-meters ?lat1 ?lon1 ?lat2 ?lon2) 1000.0))
+)
+
 ; IF budgetMax < 1000 THEN budgetLevel = LOW
 (defrule abstraction::derive-budget-low
     ?d <- (object (is-a Demand) (budgetMax ?p&:(< ?p 1000)) (budgetLevel nil))
@@ -278,6 +283,16 @@
     (object (name ?dest) (hasNature FALSE))
     =>
     (send ?of put-nature-ok NO)
+)
+
+; Compute geographic distance from user origin to each destination.
+(defrule abstraction::compute-origin-distance
+    (object (is-a Demand) (originLatitude ?olat) (originLongitude ?olon))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (location ?loc))
+    (object (name ?loc) (latitude ?dlat) (longitude ?dlon))
+    =>
+    (send ?of put-distanceFromOrigin (distance-km ?olat ?olon ?dlat ?dlon))
 )
 
 (defrule abstraction::next-step

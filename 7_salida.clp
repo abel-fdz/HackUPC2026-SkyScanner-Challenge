@@ -106,6 +106,7 @@
     (printout t "   Price: " ?price "€ | Score: " ?score crlf)
     (printout t "   Type: " (destination-tags ?of) crlf)
     (printout t "   Travel time: " (send ?of get-travelTime) crlf)
+    (printout t "   Distance from origin: " (integer (send ?of get-distanceFromOrigin)) " km" crlf)
 
     (printout t "   [+] Advantages: " (format-list ?advantages) crlf)
     (printout t "   [-] Disadvantages: " (format-list ?disadvantages) crlf)

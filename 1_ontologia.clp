@@ -30,6 +30,21 @@
     (slot tripDuration
         (type INTEGER)
         (create-accessor read-write))
+    ;;; Origin coordinates to estimate destination distance
+    (slot originLatitude
+        (type FLOAT)
+        (create-accessor read-write))
+    (slot originLongitude
+        (type FLOAT)
+        (create-accessor read-write))
+    ;;; Preferred destination continent ("ANY" disables this filter)
+    (slot preferredContinent
+        (type STRING)
+        (create-accessor read-write))
+    ;;; Proximity preference: NEAR, FAR or ANY
+    (slot proximityPreference
+        (type SYMBOL)
+        (create-accessor read-write))
 
     ;;; Need of beaches: TRUE, FALSE
     (slot needBeach
@@ -189,6 +204,7 @@
     (slot grade      (type SYMBOL)  (create-accessor read-write))
     (slot priceLevel (type SYMBOL)  (create-accessor read-write))
     (slot travelTime (type SYMBOL)  (create-accessor read-write))
+    (slot distanceFromOrigin (type FLOAT) (create-accessor read-write))
     
     ;;; Advantages and disadvantages lists
     (multislot advantages (create-accessor read-write))

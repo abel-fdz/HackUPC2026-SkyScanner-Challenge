@@ -69,6 +69,66 @@
     (slot-insert$ ?of advantages 1 "Good for short trips")
 )
 
+; Preferred continent scoring
+(defrule heuristic::score-continent-match
+    (object (is-a Demand) (preferredContinent ?pc&:(neq ?pc "ANY")))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (location ?loc))
+    (object (name ?loc) (continent ?c&:(eq ?c ?pc)))
+    =>
+    (bind ?new (+ (send ?of get-score) 12))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of advantages 1 "Preferred continent")
+)
+
+(defrule heuristic::penalty-continent-mismatch
+    (object (is-a Demand) (preferredContinent ?pc&:(neq ?pc "ANY")))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (location ?loc))
+    (object (name ?loc) (continent ?c&:(neq ?c ?pc)))
+    =>
+    (bind ?new (- (send ?of get-score) 12))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of disadvantages 1 "Different continent")
+)
+
+; Proximity scoring using computed geographic distance (km).
+(defrule heuristic::score-prefer-near-very-close
+    (object (is-a Demand) (proximityPreference NEAR))
+    ?of <- (object (is-a Offer) (distanceFromOrigin ?d&:(<= ?d 1500.0)))
+    =>
+    (bind ?new (+ (send ?of get-score) 20))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of advantages 1 "Very close to origin")
+)
+
+(defrule heuristic::score-prefer-near-medium
+    (object (is-a Demand) (proximityPreference NEAR))
+    ?of <- (object (is-a Offer) (distanceFromOrigin ?d&:(and (> ?d 1500.0) (<= ?d 3500.0))))
+    =>
+    (bind ?new (+ (send ?of get-score) 8))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of advantages 1 "Reasonably close to origin")
+)
+
+(defrule heuristic::penalty-prefer-near-far
+    (object (is-a Demand) (proximityPreference NEAR))
+    ?of <- (object (is-a Offer) (distanceFromOrigin ?d&:(> ?d 3500.0)))
+    =>
+    (bind ?new (- (send ?of get-score) 15))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of disadvantages 1 "Far from origin")
+)
+
+(defrule heuristic::score-prefer-far
+    (object (is-a Demand) (proximityPreference FAR))
+    ?of <- (object (is-a Offer) (distanceFromOrigin ?d&:(> ?d 3500.0)))
+    =>
+    (bind ?new (+ (send ?of get-score) 10))
+    (send ?of put-score ?new)
+    (slot-insert$ ?of advantages 1 "Far destination as requested")
+)
+
 ; ============================================
 ; NEGATIVE SCORING
 ; ============================================
