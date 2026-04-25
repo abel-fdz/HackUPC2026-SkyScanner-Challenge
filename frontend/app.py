@@ -70,6 +70,33 @@ COLORES_CLIMA = {
 def configurar_pagina():
     """Configura los parámetros básicos de la página Streamlit."""
     st.set_page_config(page_title="SkyScanner Dream Destiny", page_icon="✈️", layout="centered")
+    st.markdown("""
+        <style>
+        /* Fondo de la aplicación principal */
+        .stApp {
+            background-color: #0e1117 !important;
+            color: #fafafa !important;
+        }
+        
+        /* Fondo de la barra lateral */
+        [data-testid="stSidebar"] {
+            background-color: #262730 !important;
+        }
+        
+        /* Asegurar que el texto sea legible */
+        h1, h2, h3, p, label {
+            color: #fafafa !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    # Inyectar CSS para ocultar el menú de opciones y la marca de agua
+    st.markdown("""
+        <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        </style>
+        """, unsafe_allow_html=True)
     
 
 def aplicar_estilos(clima="Sin preferencia"):
@@ -81,13 +108,94 @@ def aplicar_estilos(clima="Sin preferencia"):
         }}
         .stTextArea textarea {{
             border-radius: 30px !important;
-            border: 2px solid #ff4b4b !important;
+            border: 1px solid #3d4050 !important;
             padding: 20px !important;
         }}
-        .stButton button {{ border-radius: 20px; width: 100%; font-weight: bold; }}
+        .stTextArea textarea:focus {{
+            border-color: #3d4050 !important;
+            box-shadow: none !important;
+        }}
+        /* Ocultar el mensaje "Press Ctrl+Enter" */
+        .stTextArea [data-testid="InputInstructions"] {{
+            display: none !important;
+        }}
+        .stButton button {{
+            border-radius: 20px;
+            width: 100%;
+            font-weight: bold;
+            background-color: #0066CC !important;
+            color: #fafafa !important;
+            border: 1px solid #0055aa !important;
+        }}
+        .stButton button:hover {{
+            background-color: #0055aa !important;
+            border-color: #004488 !important;
+        }}
+        [data-testid="stFileUploaderDropzone"] {{
+            background-color: #1a1d27 !important;
+            border-color: #3d4050 !important;
+        }}
+        [data-testid="stFileUploaderDropzone"] button {{
+            background-color: #2d3144 !important;
+            color: #9ba3b8 !important;
+            border: 1px solid #3d4050 !important;
+        }}
         .destino-card {{
-            background-color: #f9f9f9; border-radius: 16px;
-            padding: 16px; text-align: center; border: 1px solid #e0e0e0;
+            background-color: #1a1d27; border-radius: 16px;
+            padding: 16px; text-align: center; border: 1px solid #3d4050;
+            color: #fafafa;
+        }}
+        .destino-card strong {{
+            color: #fafafa !important;
+        }}
+        .destino-card small {{
+            color: #9ba3b8 !important;
+        }}
+        [data-testid="stFileUploaderDropzone"] span {{
+            color: #9ba3b8 !important;
+        }}
+        .stTextArea textarea {{
+            border-radius: 30px !important;
+            border: 1px solid #3d4050 !important;
+            padding: 20px !important;
+            background-color: #1a1d27 !important;
+            color: #fafafa !important;
+        }}
+        .stTextArea textarea::placeholder {{
+            color: #9ba3b8 !important;
+        }}
+        /* Estilos para bloque de código */
+        [data-testid="stCode"] {{
+            background-color: #1a1d27 !important;
+        }}
+        [data-testid="stCode"] pre {{
+            background-color: #1a1d27 !important;
+            color: #fafafa !important;
+        }}
+        [data-testid="stCode"] code {{
+            background-color: #1a1d27 !important;
+            color: #fafafa !important;
+        }}
+        .hljs {{
+            background-color: #1a1d27 !important;
+            color: #fafafa !important;
+        }}
+        /* Estilos para spinner/loader */
+        .stSpinner {{
+            color: #fafafa !important;
+        }}
+        [data-testid="stSpinner"] {{
+            color: #fafafa !important;
+        }}
+        .element-container [role="status"] {{
+            color: #fafafa !important;
+        }}
+        /* Spinner SVG */
+        .stSpinner svg {{
+            stroke: #fafafa !important;
+        }}
+        [role="status"] svg {{
+            stroke: #fafafa !important;
         }}
         </style>
         """, unsafe_allow_html=True)
@@ -143,6 +251,8 @@ def st_airplanes():
 def obtener_respuesta_ia(texto_usuario, _config_params=None):
     # _config_params permite invalidar cache cuando cambie configuración relevante.
     try:
+        # Activar modo fiesta mientras procesa
+        st_airplanes()
         respuesta = generar_respuesta_chatbot(texto_usuario)
         if "429" in respuesta or "cuota disponible" in respuesta.lower():
             return "Lo siento, la IA esta temporalmente en limite de cuota. Intentalo de nuevo en un minuto."
@@ -154,6 +264,8 @@ def obtener_respuesta_ia(texto_usuario, _config_params=None):
 @st.cache_data(show_spinner="Analizando imagen con IA...")
 def obtener_respuesta_ia_imagen(image_bytes, mime_type, texto_usuario="", _config_params=None):
     try:
+        # Activar modo fiesta mientras procesa
+        st_airplanes()
         respuesta = generar_respuesta_imagen_chatbot(image_bytes, mime_type, texto_usuario)
         if "429" in respuesta or "cuota disponible" in respuesta.lower():
             return "Lo siento, la IA esta temporalmente en limite de cuota. Intentalo de nuevo en un minuto."
