@@ -46,3 +46,4 @@ ENV/
 # OS/editor noise
 .DS_Store
 Thumbs.db
+clips_core_source_640/
