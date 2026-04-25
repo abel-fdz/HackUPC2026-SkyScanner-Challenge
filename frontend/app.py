@@ -1,9 +1,14 @@
 import streamlit as st
 import streamlit.components.v1 as components
-import subprocess
 import sys
 from pathlib import Path
 from datetime import date, timedelta
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.append(str(PROJECT_ROOT))
+
+from backend.app import generar_respuesta_chatbot
 
 
 # ============================================================================
@@ -139,7 +144,6 @@ def aplicar_estilos(clima="Sin preferencia"):
         </style>
         """, unsafe_allow_html=True)
 
-
 def st_airplanes():
     """Anima aviones cayendo desde la parte superior de la pantalla."""
     components.html("""
@@ -187,58 +191,16 @@ def st_airplanes():
     </script>
     """, height=0)
 
-
-# ============================================================================
-# FUNCIONES DE BACKEND Y PROCESAMIENTO
-# ============================================================================
-
-def ejecutar_backend(texto, imagen=None):
-    backend_script = Path(__file__).parent.parent / "backend" / "proceso.py"
-    if not backend_script.exists():
-        st.error(f"Archivo no encontrado en: {backend_script}")
-        return
-
-    # Guardamos la imagen temporalmente si existe
-    imagen_path = None
-    if imagen:
-        import tempfile
-        suffix = Path(imagen.name).suffix
-        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
-            tmp.write(imagen.read())
-            imagen_path = tmp.name
-
-    cmd = [sys.executable, str(backend_script), texto]
-    if imagen_path:
-        cmd.append(imagen_path)
-
-    with st.spinner("Procesando..."):
-        result = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8')
-
-    # Limpiamos el archivo temporal
-    if imagen_path:
-        Path(imagen_path).unlink(missing_ok=True)
-
-    mostrar_resultado_backend(result)
-
-
-def mostrar_resultado_backend(result):
-    """
-    Muestra el resultado de la ejecución del backend.
-    
-    Args:
-        result: Objeto resultado de subprocess.run()
-    """
-    if result.returncode == 0:
-        st.success("¡Proceso ejecutado!")
-        if result.stdout:
-            st.code(result.stdout, language="text")
-        else:
-            st.warning("stdout vacío.")
-        if result.stderr:
-            st.info(result.stderr)
-    else:
-        st.error(f"Error código {result.returncode}")
-        st.code(result.stderr)
+@st.cache_data(show_spinner="Consultando a nuestro experto...")
+def obtener_respuesta_ia(texto_usuario, _config_params=None):
+    # _config_params permite invalidar cache cuando cambie configuración relevante.
+    try:
+        respuesta = generar_respuesta_chatbot(texto_usuario)
+        if "429" in respuesta or "cuota disponible" in respuesta.lower():
+            return "Lo siento, la IA esta temporalmente en limite de cuota. Intentalo de nuevo en un minuto."
+        return respuesta
+    except Exception as exc:
+        return f"Error inesperado al consultar la IA: {exc}"
 
 
 # ============================================================================
@@ -389,17 +351,40 @@ def mostrar_selector_modo():
 
 def seccion_modo_texto():
     """Muestra la sección del modo texto de entrada de texto."""
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
     user_text = st.text_area(
         label="¿Cómo imaginas tu viaje perfecto?",
-        placeholder="Ej: Quiero un viaje de 10 días con mi pareja, me gustan las playas tranquilas, la buena comida y no quiero gastar más de 2000€ por persona...",
-        height=200
+        placeholder=(
+            "Ej: Quiero un viaje de 10 días con mi pareja, me gustan las playas "
+            "tranquilas, la buena comida y no quiero gastar más de 2000 EUR por persona..."
+        ),
+        height=200,
     )
-    
     if st.button("✨ Encontrar mi destino ideal"):
         if not user_text.strip():
             st.warning("Cuéntanos algo sobre tu viaje ideal primero.")
         else:
-            ejecutar_backend(user_text)
+            st.session_state.messages.append({"role": "user", "content": user_text})
+            with st.chat_message("user"):
+                st.markdown(user_text)
+
+            with st.chat_message("assistant"):
+                respuesta = obtener_respuesta_ia(
+                    user_text,
+                    _config_params={"modo": "libre"},
+                )
+                st.markdown(respuesta)
+
+            st.session_state.messages.append({"role": "assistant", "content": respuesta})
+    if st.button("🗑️ Limpiar conversación"):
+        st.session_state.messages = []
+        st.rerun()
 
 
 
@@ -419,8 +404,7 @@ def seccion_modo_imagen():
         if not imagen:
             st.warning("Sube una imagen primero.")
         else:
-            ejecutar_backend("Analiza esta imagen y recomienda un destino de viaje similar.", imagen)
-
+            st.info("Modo imagen pendiente de integrar en backend. Usa de momento el modo texto.")
 
 def seccion_ia():
     """Maneja la sección de IA con modos libre y detallado."""
