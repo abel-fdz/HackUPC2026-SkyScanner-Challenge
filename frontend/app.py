@@ -8,7 +8,10 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
 
-from backend.app import generar_respuesta_chatbot, generar_respuesta_imagen_chatbot
+from backend.app import (
+    generar_respuesta_chatbot,
+    generar_respuesta_imagen_chatbot,
+)
 
 
 # ============================================================================
@@ -404,6 +407,10 @@ def inicializar_sesion():
     """Inicializa las variables de sesión necesarias."""
     if "modo_detallado" not in st.session_state:
         st.session_state.modo_detallado = False
+    if "respuesta_ia_imagen" not in st.session_state:
+        st.session_state.respuesta_ia_imagen = ""
+    if "ultima_respuesta_texto" not in st.session_state:
+        st.session_state.ultima_respuesta_texto = ""
 
 
 def mostrar_selector_modo():
@@ -443,13 +450,16 @@ def seccion_modo_texto():
                 st.markdown(user_text)
 
             with st.chat_message("assistant"):
+                print("--- DISPARANDO LLAMADA A GEMINI (TEXTO) ---")
                 respuesta = obtener_respuesta_ia(
                     user_text,
                     _config_params={"modo": "libre"},
                 )
                 st.markdown(respuesta)
+                st.session_state.ultima_respuesta_texto = respuesta
 
             st.session_state.messages.append({"role": "assistant", "content": respuesta})
+
     if st.button("🗑️ Limpiar conversación"):
         st.session_state.messages = []
         st.rerun()
@@ -479,14 +489,16 @@ def seccion_modo_imagen():
         if not imagen:
             st.warning("Sube una imagen primero.")
         else:
-            respuesta_json = obtener_respuesta_ia_imagen(
+            print("--- DISPARANDO LLAMADA A GEMINI (IMAGEN) ---")
+            st.session_state.respuesta_ia_imagen = obtener_respuesta_ia_imagen(
                 imagen.getvalue(),
                 getattr(imagen, "type", "image/jpeg"),
                 texto_contexto,
                 _config_params={"modo": "imagen"},
             )
-            st.success("Analisis completado")
-            st.code(respuesta_json, language="json")
+    if st.session_state.respuesta_ia_imagen:
+        st.success("Analisis completado")
+        st.code(st.session_state.respuesta_ia_imagen, language="json")
 
 def seccion_ia():
     """Maneja la sección de IA con modos libre y detallado."""
