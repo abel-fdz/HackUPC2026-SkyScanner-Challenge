@@ -248,8 +248,6 @@ def st_airplanes():
 def obtener_respuesta_ia(texto_usuario, _config_params=None):
     # _config_params permite invalidar cache cuando cambie configuración relevante.
     try:
-        # Activar modo fiesta mientras procesa
-        st_airplanes()
         respuesta = generar_respuesta_chatbot(texto_usuario)
         if "429" in respuesta or "cuota disponible" in respuesta.lower():
             return "Lo siento, la IA esta temporalmente en limite de cuota. Intentalo de nuevo en un minuto."
@@ -261,8 +259,6 @@ def obtener_respuesta_ia(texto_usuario, _config_params=None):
 @st.cache_data(show_spinner="Analizando imagen con IA...")
 def obtener_respuesta_ia_imagen(image_bytes, mime_type, texto_usuario="", _config_params=None):
     try:
-        # Activar modo fiesta mientras procesa
-        st_airplanes()
         respuesta = generar_respuesta_imagen_chatbot(image_bytes, mime_type, texto_usuario)
         if "429" in respuesta or "cuota disponible" in respuesta.lower():
             return "Lo siento, la IA esta temporalmente en limite de cuota. Intentalo de nuevo en un minuto."
@@ -271,128 +267,10 @@ def obtener_respuesta_ia_imagen(image_bytes, mime_type, texto_usuario="", _confi
         return f"Error inesperado al analizar la imagen: {exc}"
 
 
-# ============================================================================
-# FUNCIONES DE BÚSQUEDA DE VUELOS
-# ============================================================================
-
 def mostrar_cabecera():
     """Muestra el encabezado de la página."""
     st.title("✈️ SkyScanner Dream Destiny")
     st.caption("Encuentra el viaje perfecto según tus sueños")
-    st.divider()
-
-
-def obtener_parametros_busqueda():
-    """
-    Obtiene los parámetros de búsqueda del usuario.
-    
-    Returns:
-        tuple: (origen, destino, fecha_ida, fecha_vuelta, pasajeros, clase)
-    """
-    st.subheader("🔍 Buscar vuelo")
-    col_origen, col_destino = st.columns(2)
-    
-    with col_origen:
-        origen = st.selectbox("🛫 Origen", AEROPUERTOS, index=0)
-    with col_destino:
-        destino = st.selectbox("🛬 Destino", AEROPUERTOS, index=2)
-    
-    col_ida, col_vuelta = st.columns(2)
-    with col_ida:
-        fecha_ida = st.date_input("📅 Fecha de ida", value=date.today() + timedelta(days=30))
-    with col_vuelta:
-        fecha_vuelta = st.date_input("📅 Fecha de vuelta", value=date.today() + timedelta(days=37))
-    
-    col_pasajeros, col_clase = st.columns(2)
-    with col_pasajeros:
-        pasajeros = st.number_input("👤 Pasajeros", min_value=1, max_value=9, value=1)
-    with col_clase:
-        clase = st.selectbox("💺 Clase", ["Turista", "Business", "Primera clase"])
-    
-    return origen, destino, fecha_ida, fecha_vuelta, pasajeros, clase
-
-
-def validar_parametros_busqueda(origen, destino, fecha_ida, fecha_vuelta):
-    """
-    Valida los parámetros de búsqueda.
-    
-    Args:
-        origen (str): Aeropuerto de origen
-        destino (str): Aeropuerto de destino
-        fecha_ida (date): Fecha de ida
-        fecha_vuelta (date): Fecha de vuelta
-    
-    Returns:
-        bool: True si los parámetros son válidos
-    """
-    if origen == destino:
-        st.warning("El origen y el destino no pueden ser iguales.")
-        return False
-    if fecha_vuelta < fecha_ida:
-        st.warning("La fecha de vuelta no puede ser anterior a la de ida.")
-        return False
-    return True
-
-
-def mostrar_info_busqueda(origen, destino, fecha_ida, fecha_vuelta, pasajeros, clase):
-    """
-    Muestra la información de la búsqueda realizada.
-    
-    Args:
-        origen (str): Aeropuerto de origen
-        destino (str): Aeropuerto de destino
-        fecha_ida (date): Fecha de ida
-        fecha_vuelta (date): Fecha de vuelta
-        pasajeros (int): Número de pasajeros
-        clase (str): Clase de vuelo
-    """
-    noches = (fecha_vuelta - fecha_ida).days
-    st.info(f"Buscando vuelos de **{origen}** a **{destino}** · {noches} noches · {pasajeros} pasajero(s) · {clase}")
-    st.toast("Búsqueda en curso...", icon="🔍")
-
-
-def seccion_busqueda_vuelos():
-    """Maneja la sección de búsqueda de vuelos."""
-    origen, destino, fecha_ida, fecha_vuelta, pasajeros, clase = obtener_parametros_busqueda()
-    
-    if st.button("🔎 Buscar vuelos"):
-        if validar_parametros_busqueda(origen, destino, fecha_ida, fecha_vuelta):
-            mostrar_info_busqueda(origen, destino, fecha_ida, fecha_vuelta, pasajeros, clase)
-    
-    st.divider()
-
-
-# ============================================================================
-# FUNCIONES DE DESTINOS DESTACADOS
-# ============================================================================
-
-def mostrar_tarjeta_destino(destino):
-    """
-    Muestra una tarjeta individual de destino.
-    
-    Args:
-        destino (dict): Diccionario con emoji, ciudad, precio y descripción
-    """
-    st.markdown(f"""
-    <div class="destino-card">
-        <div style="font-size: 2rem;">{destino['emoji']}</div>
-        <strong>{destino['ciudad']}</strong><br>
-        <span style="color: #ff4b4b; font-weight: bold;">{destino['precio']}</span><br>
-        <small style="color: gray;">{destino['desc']}</small>
-    </div>
-    """, unsafe_allow_html=True)
-    st.write("")
-
-
-def seccion_destinos_destacados():
-    """Muestra la sección de destinos destacados."""
-    st.subheader("🌍 Destinos destacados")
-    
-    cols = st.columns(3)
-    for i, destino in enumerate(DESTINOS_DESTACADOS):
-        with cols[i % 3]:
-            mostrar_tarjeta_destino(destino)
-    
     st.divider()
 
 
@@ -443,11 +321,14 @@ def seccion_modo_texto():
                 st.markdown(user_text)
 
             with st.chat_message("assistant"):
+                placeholder = st.empty()
+                with placeholder.container():
+                    st_airplanes()
                 respuesta = obtener_respuesta_ia(
                     user_text,
                     _config_params={"modo": "libre"},
                 )
-                st.markdown(respuesta)
+                placeholder.markdown(respuesta)
 
             st.session_state.messages.append({"role": "assistant", "content": respuesta})
     if st.button("🗑️ Limpiar conversación"):
@@ -479,14 +360,17 @@ def seccion_modo_imagen():
         if not imagen:
             st.warning("Sube una imagen primero.")
         else:
+            placeholder = st.empty()
+            with placeholder.container():
+                st_airplanes()
             respuesta_json = obtener_respuesta_ia_imagen(
                 imagen.getvalue(),
                 getattr(imagen, "type", "image/jpeg"),
                 texto_contexto,
                 _config_params={"modo": "imagen"},
             )
-            st.success("Analisis completado")
-            st.code(respuesta_json, language="json")
+            placeholder.success("Analisis completado")
+            placeholder.code(respuesta_json, language="json")
 
 def seccion_ia():
     """Maneja la sección de IA con modos libre y detallado."""
@@ -517,8 +401,6 @@ def main():
     aplicar_estilos(clima_actual)
 
     mostrar_cabecera()
-    seccion_busqueda_vuelos()
-    seccion_destinos_destacados()
     seccion_ia()
 
 
