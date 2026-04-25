@@ -279,3 +279,8 @@
     =>
     (send ?of put-nature-ok NO)
 )
+
+(defrule abstraction::next-step
+    (declare (salience -100))
+    =>
+    (focus heuristic))

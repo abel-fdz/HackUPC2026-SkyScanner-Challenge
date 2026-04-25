@@ -93,6 +93,14 @@
     (slot country
         (type STRING)
         (create-accessor read-write))
+    ;;; Address (optional)
+    (slot address
+        (type STRING)
+        (create-accessor read-write))
+    ;;; District/area (optional)
+    (slot district
+        (type STRING)
+        (create-accessor read-write))
 )
 
 (defclass Destination "Destinations around the world"
@@ -180,5 +188,63 @@
     (slot score      (type FLOAT)   (create-accessor read-write))
     (slot grade      (type SYMBOL)  (create-accessor read-write))
     (slot priceLevel (type SYMBOL)  (create-accessor read-write))
-    (slot travelTime (type FLOAT)   (create-accessor read-write))
+    (slot travelTime (type SYMBOL)  (create-accessor read-write))
+    
+    ;;; Advantages and disadvantages lists
+    (multislot advantages (create-accessor read-write))
+    (multislot disadvantages (create-accessor read-write))
+    
+    ;;; Reason for recommendation
+    (slot reason (type STRING) (create-accessor read-write))
+)
+
+(defclass Servicio "Service available at location"
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (slot tipoServicio
+        (type SYMBOL)
+        (create-accessor read-write))
+    (slot location
+        (type INSTANCE)
+        (create-accessor read-write))
+)
+
+(defclass Vivienda "Housing/accommodation"
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (slot nombre
+        (type STRING)
+        (create-accessor read-write))
+    (slot tipo
+        (type SYMBOL)
+        (create-accessor read-write))
+    (slot habitaciones
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot m2
+        (type FLOAT)
+        (create-accessor read-write))
+    (slot amueblado
+        (type SYMBOL)
+        (create-accessor read-write))
+    (slot localizacion
+        (type INSTANCE)
+        (create-accessor read-write))
+)
+
+(defclass Oferta "Offer for accommodation"
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (slot idOferta
+        (type STRING)
+        (create-accessor read-write))
+    (slot precio
+        (type FLOAT)
+        (create-accessor read-write))
+    (slot vivienda
+        (type INSTANCE)
+        (create-accessor read-write))
 )

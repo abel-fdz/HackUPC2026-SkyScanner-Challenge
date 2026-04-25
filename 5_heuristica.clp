@@ -8,14 +8,9 @@
 )
 
 ; ============================================
-; INITIALIZATION (ensure score starts at 0)
+; INITIALIZATION
 ; ============================================
-
-(defrule heuristic::init-score
-    ?of <- (object (is-a Offer) (score ?s&:(neq ?s 0.0)))
-    =>
-    (send ?of put-score 0.0)
-)
+; Offer.score already has numeric values in our dataset.
 
 ; ============================================
 ; POSITIVE SCORING
@@ -45,7 +40,8 @@
 ; Culture
 (defrule heuristic::score-culture
     (object (is-a Demand) (needCulture TRUE))
-    ?of <- (object (is-a Offer) (hasCulture TRUE))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasCulture TRUE))
     =>
     (bind ?new (+ (send ?of get-score) 20))
     (send ?of put-score ?new)
@@ -55,7 +51,8 @@
 ; Nature
 (defrule heuristic::score-nature
     (object (is-a Demand) (needNature TRUE))
-    ?of <- (object (is-a Offer) (hasNature TRUE))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasNature TRUE))
     =>
     (bind ?new (+ (send ?of get-score) 20))
     (send ?of put-score ?new)
@@ -89,7 +86,8 @@
 ; Missing beach
 (defrule heuristic::penalty-no-beach
     (object (is-a Demand) (needBeach TRUE))
-    ?of <- (object (is-a Offer) (hasBeach FALSE))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasBeach FALSE))
     =>
     (bind ?new (- (send ?of get-score) 25))
     (send ?of put-score ?new)
@@ -99,7 +97,8 @@
 ; Missing culture
 (defrule heuristic::penalty-no-culture
     (object (is-a Demand) (needCulture TRUE))
-    ?of <- (object (is-a Offer) (hasCulture FALSE))
+    ?of <- (object (is-a Offer) (Destination ?dest))
+    (object (name ?dest) (hasCulture FALSE))
     =>
     (bind ?new (- (send ?of get-score) 20))
     (send ?of put-score ?new)
@@ -132,7 +131,7 @@
 
 ; High match bonus
 (defrule heuristic::bonus-high-score
-    ?of <- (object (is-a Offer) (score ?s&:(> ?s 60)))
+    ?of <- (object (is-a Offer) (score ?s&:(and (> ?s 60) (<= ?s 70))))
     =>
     (bind ?new (+ ?s 10))
     (send ?of put-score ?new)
@@ -143,22 +142,26 @@
 ; ============================================
 
 (defrule heuristic::classify
-    (declare (salience -10))
-    ?of <- (object (is-a Offer) (score ?s) (grade nil))
+    (declare (salience -100))
+    ?of <- (object (is-a Offer) (score ?s))
     =>
-    (if (>= ?s 70) then
+    (if (>= ?s 70)
+        then
         (send ?of put-grade VERY_RECOMMENDED)
         (send ?of put-reason "Excellent match")
-    else if (>= ?s 40) then
-        (send ?of put-grade RECOMMENDED)
-        (send ?of put-reason "Good option")
-    else if (>= ?s 10) then
-        (send ?of put-grade PARTIAL)
-        (send ?of put-reason "Some mismatches")
-    else
-        (send ?of put-grade NOT_SUITABLE)
-        (send ?of put-reason "Poor match")
-    )
+        else
+        (if (>= ?s 40)
+            then
+            (send ?of put-grade RECOMMENDED)
+            (send ?of put-reason "Good option")
+            else
+            (if (>= ?s 10)
+                then
+                (send ?of put-grade PARTIAL)
+                (send ?of put-reason "Some mismatches")
+                else
+                (send ?of put-grade NOT_SUITABLE)
+                (send ?of put-reason "Poor match"))))
 )
 
 ; ============================================
@@ -166,7 +169,8 @@
 ; ============================================
 
 (defrule heuristic::next-step
-    (declare (salience -20))
+    (declare (salience -200))
+    (not (object (is-a Offer) (grade nil)))
     =>
     (focus refinement)
 )

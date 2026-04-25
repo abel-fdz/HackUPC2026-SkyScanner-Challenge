@@ -36,14 +36,16 @@
 ; Simple tags for destination features
 (deffunction output::destination-tags (?of)
     (bind ?txt "")
+    (bind ?dest (send ?of get-Destination))
+    (if (eq ?dest [nil]) then (return "-"))
     
-    (if (eq (send ?of get-hasBeach) TRUE)
+    (if (eq (send ?dest get-hasBeach) TRUE)
         then (bind ?txt (str-cat ?txt "Beach ")))
         
-    (if (eq (send ?of get-hasCulture) TRUE)
+    (if (eq (send ?dest get-hasCulture) TRUE)
         then (bind ?txt (str-cat ?txt "Culture ")))
         
-    (if (eq (send ?of get-hasNature) TRUE)
+    (if (eq (send ?dest get-hasNature) TRUE)
         then (bind ?txt (str-cat ?txt "Nature ")))
         
     (if (eq (str-length ?txt) 0)
@@ -87,12 +89,13 @@
 (defrule output::print-offer
     (declare (salience 90))
     (selection (position ?pos) (offer ?of) (original-grade ?g))
+    (test (neq (send ?of get-Destination) [nil]))
     (not (printed ?pos))
     (not (and (selection (position ?p2))
               (test (< ?p2 ?pos))
               (not (printed ?p2))))
     =>
-    (bind ?name (send ?of get-name))
+    (bind ?name (instance-name ?of))
     (bind ?price (send ?of get-price))
     (bind ?score (send ?of get-score))
     (bind ?advantages (send ?of get-advantages))

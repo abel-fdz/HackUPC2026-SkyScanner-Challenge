@@ -1,65 +1,138 @@
-(definstances instancies-generades
-    ;;; --- LOCALITZACIONS ADDICIONALS ---
-    ([loc501] of Location (direccion "Carrer de Balmes 450") (distrito "Sarria-Sant Gervasi") (longitud 2.1384) (latitud 41.4112))
-    ([loc502] of Location (direccion "Avinguda Meridiana 120") (distrito "Sant Andreu") (longitud 2.1856) (latitud 41.4190))
-    ([loc503] of Location (direccion "Carrer de la Marina 200") (distrito "Eixample") (longitud 2.1821) (latitud 41.4012))
-    ([loc504] of Location (direccion "Gran Via 580") (distrito "Eixample") (longitud 2.1630) (latitud 41.3850))
-    ([loc505] of Location (direccion "Carrer de Sants 30") (distrito "Sants-Montjuic") (longitud 2.1412) (latitud 41.3755))
-    ([loc506] of Location (direccion "Passeig de Gracia 92") (distrito "Eixample") (longitud 2.1610) (latitud 41.3920))
-    ([loc507] of Location (direccion "Carrer de Mallorca 350") (distrito "Eixample") (longitud 2.1705) (latitud 41.3988))
-    ([loc508] of Location (direccion "Carrer de Piquer 12") (distrito "Sants-Montjuic") (longitud 2.1690) (latitud 41.3721))
-    ([loc509] of Location (direccion "Rambla del Poblenou 45") (distrito "Sant Marti") (longitud 2.2012) (latitud 41.4005))
-    ([loc510] of Location (direccion "Travessera de les Corts 150") (distrito "Les Corts") (longitud 2.1255) (latitud 41.3833))
+(definstances travel-data
+    ;;; --- LOCATIONS ---
+    ([loc-barcelona] of Location
+        (latitude 41.3851) (longitude 2.1734)
+        (continent "Europe") (country "Spain")
+        (address "Placa de Catalunya") (district "Barcelona"))
+    ([loc-lisbon] of Location
+        (latitude 38.7223) (longitude -9.1393)
+        (continent "Europe") (country "Portugal")
+        (address "Praca do Comercio") (district "Lisbon"))
+    ([loc-reykjavik] of Location
+        (latitude 64.1466) (longitude -21.9426)
+        (continent "Europe") (country "Iceland")
+        (address "Laugavegur 1") (district "Midborg"))
+    ([loc-marrakech] of Location
+        (latitude 31.6295) (longitude -7.9811)
+        (continent "Africa") (country "Morocco")
+        (address "Jemaa el-Fnaa") (district "Medina"))
+    ([loc-bangkok] of Location
+        (latitude 13.7563) (longitude 100.5018)
+        (continent "Asia") (country "Thailand")
+        (address "Sukhumvit Road") (district "Khlong Toei"))
+    ([loc-vancouver] of Location
+        (latitude 49.2827) (longitude -123.1207)
+        (continent "North America") (country "Canada")
+        (address "Canada Place") (district "Downtown"))
+    ([loc-cusco] of Location
+        (latitude -13.5319) (longitude -71.9675)
+        (continent "South America") (country "Peru")
+        (address "Plaza de Armas") (district "Cusco Centro"))
+    ([loc-queenstown] of Location
+        (latitude -45.0312) (longitude 168.6626)
+        (continent "Oceania") (country "New Zealand")
+        (address "Shotover Street") (district "Queenstown"))
 
-    ;;; --- SERVEIS (Exemples de Col·legis i altres) ---
-    ([serv_cole501] of Servicio (tipoServicio COLEGIO) (location [loc501]))
-    ([serv_cole502] of Servicio (tipoServicio COLEGIO) (location [loc502]))
-    ([serv_hosp501] of Servicio (tipoServicio HOSPITAL) (location [loc504]))
-    ([serv_supe501] of Servicio (tipoServicio SUPERMERCADO) (location [loc505]))
-    ([serv_gym501] of Servicio (tipoServicio GIMNASIO) (location [loc509]))
+    ;;; --- DESTINATIONS ---
+    ([dest-barcelona] of Destination
+        (hasClimate TEMPERATE) (hasTemperature MILD)
+        (hasBeach TRUE) (hasMountain TRUE)
+        (hasTypePopulation MAJOR-CITY)
+        (hasCulture TRUE) (hasParty TRUE) (hasActivities TRUE)
+        (hasHistory TRUE) (hasNature TRUE)
+        (location [loc-barcelona]))
 
-    ;;; --- VIVENDES ---
-    ([viv501] of Vivienda 
-        (nombre "Penthouse with views") 
-        (tipo PISO) 
-        (habitaciones 3) 
-        (m2 95) 
-        (amueblado TRUE) 
-        (localizacion [loc501]))
-    ([viv502] of Vivienda 
-        (nombre "Modern Studio Sant Andreu") 
-        (tipo ESTUDIO) 
-        (habitaciones 1) 
-        (m2 45) 
-        (amueblado TRUE) 
-        (localizacion [loc502]))
-    ([viv503] of Vivienda 
-        (nombre "Family Apartment Marina") 
-        (tipo PISO) 
-        (habitaciones 4) 
-        (m2 120) 
-        (amueblado FALSE) 
-        (localizacion [loc503]))
-    ([viv504] of Vivienda 
-        (nombre "Charming Eixample Flat") 
-        (tipo PISO) 
-        (habitaciones 2) 
-        (m2 75) 
-        (amueblado TRUE) 
-        (localizacion [loc504]))
-    ([viv505] of Vivienda 
-        (nombre "Sants Cozy Room") 
-        (tipo HABITACION) 
-        (habitaciones 1) 
-        (m2 15) 
-        (amueblado TRUE) 
-        (localizacion [loc505]))
+    ([dest-lisbon] of Destination
+        (hasClimate DRY) (hasTemperature MILD)
+        (hasBeach TRUE) (hasMountain FALSE)
+        (hasTypePopulation CITY)
+        (hasCulture TRUE) (hasParty TRUE) (hasActivities TRUE)
+        (hasHistory TRUE) (hasNature TRUE)
+        (location [loc-lisbon]))
 
-    ;;; --- OFERTES ---
-    ([ofe501] of Oferta (idOferta "OFERTA 501") (precio 1850.0) (vivienda [viv501]))
-    ([ofe502] of Oferta (idOferta "OFERTA 502") (precio 850.0) (vivienda [viv502]))
-    ([ofe503] of Oferta (idOferta "OFERTA 503") (precio 2100.0) (vivienda [viv503]))
-    ([ofe504] of Oferta (idOferta "OFERTA 504") (precio 1450.0) (vivienda [viv504]))
-    ([ofe505] of Oferta (idOferta "OFERTA 505") (precio 450.0) (vivienda [viv505]))
-    ([ofe506] of Oferta (idOferta "OFERTA 506") (precio 3200.0) (vivienda [viv501]))
+    ([dest-reykjavik] of Destination
+        (hasClimate COLD) (hasTemperature COLD)
+        (hasBeach FALSE) (hasMountain TRUE)
+        (hasTypePopulation CITY)
+        (hasCulture TRUE) (hasParty FALSE) (hasActivities TRUE)
+        (hasHistory TRUE) (hasNature TRUE)
+        (location [loc-reykjavik]))
+
+    ([dest-marrakech] of Destination
+        (hasClimate DRY) (hasTemperature HOT)
+        (hasBeach FALSE) (hasMountain FALSE)
+        (hasTypePopulation CITY)
+        (hasCulture TRUE) (hasParty TRUE) (hasActivities TRUE)
+        (hasHistory TRUE) (hasNature FALSE)
+        (location [loc-marrakech]))
+
+    ([dest-bangkok] of Destination
+        (hasClimate HUMID) (hasTemperature HOT)
+        (hasBeach FALSE) (hasMountain FALSE)
+        (hasTypePopulation MAJOR-CITY)
+        (hasCulture TRUE) (hasParty TRUE) (hasActivities TRUE)
+        (hasHistory TRUE) (hasNature FALSE)
+        (location [loc-bangkok]))
+
+    ([dest-vancouver] of Destination
+        (hasClimate TEMPERATE) (hasTemperature MILD)
+        (hasBeach TRUE) (hasMountain TRUE)
+        (hasTypePopulation CITY)
+        (hasCulture TRUE) (hasParty FALSE) (hasActivities TRUE)
+        (hasHistory FALSE) (hasNature TRUE)
+        (location [loc-vancouver]))
+
+    ([dest-cusco] of Destination
+        (hasClimate DRY) (hasTemperature MILD)
+        (hasBeach FALSE) (hasMountain TRUE)
+        (hasTypePopulation RURAL)
+        (hasCulture TRUE) (hasParty FALSE) (hasActivities TRUE)
+        (hasHistory TRUE) (hasNature TRUE)
+        (location [loc-cusco]))
+
+    ([dest-queenstown] of Destination
+        (hasClimate COLD) (hasTemperature COLD)
+        (hasBeach TRUE) (hasMountain TRUE)
+        (hasTypePopulation RURAL)
+        (hasCulture FALSE) (hasParty TRUE) (hasActivities TRUE)
+        (hasHistory FALSE) (hasNature TRUE)
+        (location [loc-queenstown]))
+
+    ;;; --- OFFERS ---
+    ([offer1] of Offer
+        (price 850) (duration 5) (Destination [dest-lisbon])
+        (priceLevel LOW) (travelTime SHORT))
+    ([offer2] of Offer
+        (price 1200) (duration 7) (Destination [dest-barcelona])
+        (priceLevel MEDIUM) (travelTime SHORT))
+    ([offer3] of Offer
+        (price 1650) (duration 8) (Destination [dest-marrakech])
+        (priceLevel MEDIUM) (travelTime SHORT))
+    ([offer4] of Offer
+        (price 1900) (duration 10) (Destination [dest-vancouver])
+        (priceLevel MEDIUM_HIGH) (travelTime LONG))
+    ([offer5] of Offer
+        (price 2300) (duration 12) (Destination [dest-bangkok])
+        (priceLevel HIGH) (travelTime LONG))
+    ([offer6] of Offer
+        (price 2600) (duration 11) (Destination [dest-reykjavik])
+        (priceLevel HIGH) (travelTime LONG))
+    ([offer7] of Offer
+        (price 1400) (duration 9) (Destination [dest-cusco])
+        (priceLevel MEDIUM) (travelTime LONG))
+    ([offer8] of Offer
+        (price 3000) (duration 14) (Destination [dest-queenstown])
+        (priceLevel HIGH) (travelTime LONG))
+    ([offer9] of Offer
+        (price 1100) (duration 6) (Destination [dest-lisbon])
+        (priceLevel MEDIUM) (travelTime SHORT))
+    ([offer10] of Offer
+        (price 1750) (duration 8) (Destination [dest-barcelona])
+        (priceLevel MEDIUM_HIGH) (travelTime SHORT))
+    ([offer11] of Offer
+        (price 950) (duration 5) (Destination [dest-marrakech])
+        (priceLevel LOW) (travelTime SHORT))
+    ([offer12] of Offer
+        (price 2100) (duration 9) (Destination [dest-vancouver])
+        (priceLevel HIGH) (travelTime LONG))
 )
