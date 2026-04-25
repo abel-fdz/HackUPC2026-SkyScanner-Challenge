@@ -120,13 +120,13 @@ def aplicar_estilos(clima="Sin preferencia"):
             border-radius: 20px;
             width: 100%;
             font-weight: bold;
-            background-color: #1a1d27 !important;
+            background-color: #0066CC !important;
             color: #fafafa !important;
-            border: 1px solid #3d4050 !important;
+            border: 1px solid #0055aa !important;
         }}
         .stButton button:hover {{
-            background-color: #2d3144 !important;
-            border-color: #6b7280 !important;
+            background-color: #0055aa !important;
+            border-color: #004488 !important;
         }}
         [data-testid="stFileUploaderDropzone"] {{
             background-color: #1a1d27 !important;
@@ -138,8 +138,28 @@ def aplicar_estilos(clima="Sin preferencia"):
             border: 1px solid #3d4050 !important;
         }}
         .destino-card {{
-            background-color: #f9f9f9; border-radius: 16px;
-            padding: 16px; text-align: center; border: 1px solid #e0e0e0;
+            background-color: #1a1d27; border-radius: 16px;
+            padding: 16px; text-align: center; border: 1px solid #3d4050;
+            color: #fafafa;
+        }}
+        .destino-card strong {{
+            color: #fafafa !important;
+        }}
+        .destino-card small {{
+            color: #9ba3b8 !important;
+        }}
+        [data-testid="stFileUploaderDropzone"] span {{
+            color: #9ba3b8 !important;
+        }}
+        .stTextArea textarea {{
+            border-radius: 30px !important;
+            border: 1px solid #3d4050 !important;
+            padding: 20px !important;
+            background-color: #1a1d27 !important;
+            color: #fafafa !important;
+        }}
+        .stTextArea textarea::placeholder {{
+            color: #9ba3b8 !important;
         }}
         </style>
         """, unsafe_allow_html=True)
