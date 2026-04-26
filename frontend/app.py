@@ -2,7 +2,6 @@ import streamlit as st
 import streamlit.components.v1 as components
 import sys
 from pathlib import Path
-from datetime import date, timedelta
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
@@ -19,47 +18,8 @@ from backend.app import (
 # CONFIGURACIÓN Y CONSTANTES
 # ============================================================================
 
-AEROPUERTOS = [
-    "Barcelona (BCN)", "Madrid (MAD)", "Londres (LHR)", "París (CDG)",
-    "Roma (FCO)", "Ámsterdam (AMS)", "Berlín (BER)", "Lisboa (LIS)",
-    "Nueva York (JFK)", "Tokio (NRT)", "Dubai (DXB)", "Cancún (CUN)"
-]
-
-DESTINOS_DESTACADOS = [
-    {"emoji": "🗼", "ciudad": "París",     "precio": "desde 189€", "desc": "La ciudad del amor"},
-    {"emoji": "🏖️", "ciudad": "Bali",      "precio": "desde 620€", "desc": "Paraíso tropical"},
-    {"emoji": "🗽", "ciudad": "Nueva York", "precio": "desde 399€", "desc": "La ciudad que nunca duerme"},
-    {"emoji": "🏯", "ciudad": "Tokio",     "precio": "desde 710€", "desc": "Tradición y modernidad"},
-    {"emoji": "🌅", "ciudad": "Santorini", "precio": "desde 240€", "desc": "Vistas al Egeo"},
-    {"emoji": "🎭", "ciudad": "Roma",      "precio": "desde 140€", "desc": "La ciudad eterna"},
-]
-
-MESES = [
-    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-]
-
-TIPOS_VIAJE = [
-    "Solo", "En pareja / Romántico", "Familia con niños",
-    "Grupo de amigos", "Viaje de negocios"
-]
-
-CLIMAS = [
-    "Soleado y cálido", "Templado", "Frío / Nieve",
-    "Tropical", "Seco / Desértico", "Sin preferencia"
-]
-
-TIPOS_DESTINO = [
-    "🏖️ Playa", "🏔️ Montaña", "🏙️ Gran metrópoli", "🏛️ Cultural / Museos",
-    "🎉 Fiesta / Nightlife", "🧗 Aventura / Deporte", "🏰 Histórico"
-]
 
 COLORES_CLIMA = {
-    "Soleado y cálido":   ("linear-gradient(to bottom, #FFDAB9, #FFA07A, #FF6347)"),
-    "Templado":           ("linear-gradient(to bottom, #d4f1c4, #89c96e, #4a9e3f)"),
-    "Frío / Nieve":       ("linear-gradient(to bottom, #e8f4fd, #b8d9f0, #7ab8e8)"),
-    "Tropical":           ("linear-gradient(to bottom, #c8f5a0, #40c0a0, #0077b6)"),
-    "Seco / Desértico":   ("linear-gradient(to bottom, #f5e6c8, #e0b96e, #c47a2a)"),
     "Sin preferencia":    ("linear-gradient(to bottom, #0d1b2e, #0d2137, #0d2840)"),
 }
 
