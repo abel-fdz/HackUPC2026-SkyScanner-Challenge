@@ -1,6 +1,8 @@
 import streamlit as st
 import streamlit.components.v1 as components
 import sys
+import re
+import html
 from pathlib import Path
 from datetime import date, timedelta
 
@@ -12,9 +14,6 @@ from backend.app import (
     generar_respuesta_chatbot,
     generar_respuesta_imagen_chatbot,
     generar_recomendacion_clips_desde_json,
-    generar_explicacion_usuario_desde_clips,
-    extraer_destinos_desde_clips,
-    obtener_live_opciones_destino,
 )
 
 
@@ -271,86 +270,104 @@ def obtener_salida_clips(preferences_json, _config_params=None):
         return f"Error inesperado al ejecutar CLIPS: {exc}"
 
 
-@st.cache_data(show_spinner="Traduciendo recomendaciones a lenguaje natural...")
-def obtener_explicacion_desde_clips(preferences_json, clips_output, _config_params=None):
-    try:
-        return generar_explicacion_usuario_desde_clips(preferences_json, clips_output)
-    except Exception as exc:
-        return f"Error inesperado al generar explicacion: {exc}"
+def render_clips_output_elegant(clips_output: str):
+    """
+    Renderiza salida CLIPS con formato legible:
+    - Primera línea como título
+    - Resto como texto normal
+    - Ventajas en verde y desventajas en rojo
+    """
+    raw_lines = [ln.strip() for ln in (clips_output or "").splitlines() if ln.strip()]
+    lines = [
+        ln
+        for ln in raw_lines
+        if not re.fullmatch(r"[=\-]{8,}", ln)
+    ]
+    if not lines:
+        st.info("CLIPS no devolvió contenido.")
+        return
 
+    title = lines[0]
+    body_lines = lines[1:]
 
-@st.cache_data(show_spinner="Consultando vuelos live...")
-def obtener_opciones_live_destino(preferences_json, destination_slug, _config_params=None):
-    try:
-        return obtener_live_opciones_destino(preferences_json, destination_slug)
-    except Exception as exc:
-        return {"error": f"Error consultando opciones live: {exc}"}
+    st.markdown(f"### {title}")
+    if not body_lines:
+        return
+
+    def _render_tag_balls(items: list[str], tone: str):
+        if not items:
+            return
+        bg = "#dcfce7" if tone == "good" else "#fee2e2"
+        fg = "#166534" if tone == "good" else "#991b1b"
+        border = "#86efac" if tone == "good" else "#fca5a5"
+        chips = "".join(
+            f"<span style='display:inline-block; margin:0 8px 8px 0; padding:6px 12px; "
+            f"border-radius:999px; background:{bg}; color:{fg}; border:1px solid {border}; "
+            f"font-size:0.86rem; white-space:nowrap;'>{html.escape(it)}</span>"
+            for it in items
+        )
+        st.markdown(f"<div style='margin: 0.15rem 0 0.35rem 0;'>{chips}</div>", unsafe_allow_html=True)
+
+    # Group lines by destination block so we can force:
+    # advantages row first, disadvantages row second.
+    blocks = []
+    current = []
+    for line in body_lines:
+        if re.match(r"^\d+\.\s+", line):
+            if current:
+                blocks.append(current)
+            current = [line]
+        else:
+            current.append(line)
+    if current:
+        blocks.append(current)
+    if not blocks:
+        blocks = [body_lines]
+
+    for block in blocks:
+        header = block[0] if block else ""
+        if header and re.match(r"^\d+\.\s+", header):
+            st.markdown(f"#### 🟠 **{html.escape(header)}**")
+
+        normal_lines = []
+        advantages_items = []
+        disadvantages_items = []
+
+        for line in block[1:] if header else block:
+            low = line.lower()
+            if re.search(r"\b(ventajas?|advantages?|pros?)\b", low):
+                tail = re.split(r"[:：]", line, maxsplit=1)
+                content = tail[1] if len(tail) > 1 else line
+                advantages_items.extend(
+                    [x.strip(" -") for x in re.split(r",|;|\|", content) if x.strip(" -")]
+                )
+            elif re.search(r"\b(desventajas?|disadvantages?|contras?)\b", low):
+                tail = re.split(r"[:：]", line, maxsplit=1)
+                content = tail[1] if len(tail) > 1 else line
+                disadvantages_items.extend(
+                    [x.strip(" -") for x in re.split(r",|;|\|", content) if x.strip(" -")]
+                )
+            elif re.search(r"\b(reason|motivo)\b", low):
+                # Hide reason field as requested.
+                continue
+            else:
+                normal_lines.append(line)
+
+        for line in normal_lines:
+            st.markdown(f"<p style='margin: 0.2rem 0;'>{html.escape(line)}</p>", unsafe_allow_html=True)
+
+        # Requested order: all advantages first, disadvantages below.
+        _render_tag_balls(advantages_items, "good")
+        _render_tag_balls(disadvantages_items, "bad")
 
 
 def render_clips_and_live_block(preferences_json: str, source_tag: str):
-    with st.expander("🧠 CLIPS recommendations", expanded=False):
-        clips_output = obtener_salida_clips(
-            preferences_json,
-            _config_params={"modo": source_tag},
-        )
-        explicacion = obtener_explicacion_desde_clips(
-            preferences_json,
-            clips_output,
-            _config_params={"modo": source_tag},
-        )
-        st.markdown(explicacion)
-        st.caption("Salida tecnica de CLIPS")
-        st.code(clips_output, language="text")
-
-        destinos = extraer_destinos_desde_clips(clips_output)
-        if destinos:
-            st.markdown("### Elige un destino para ver opciones live")
-            cols = st.columns(min(3, len(destinos)))
-            for i, d in enumerate(destinos):
-                col = cols[i % len(cols)]
-                with col:
-                    if st.button(
-                        f"Ver {d['city']} ({d['iata']})",
-                        key=f"btn_dest_{source_tag}_{d['slug']}_{i}",
-                        use_container_width=True,
-                    ):
-                        st.session_state.selected_destination_slug = d["slug"]
-                        st.session_state.selected_preferences_json = preferences_json
-                        st.session_state.selected_source_tag = source_tag
-
-            selected_slug = st.session_state.get("selected_destination_slug")
-            selected_json = st.session_state.get("selected_preferences_json")
-            selected_source = st.session_state.get("selected_source_tag")
-            if selected_slug and selected_json and selected_source == source_tag:
-                live = obtener_opciones_live_destino(
-                    selected_json,
-                    selected_slug,
-                    _config_params={"source": source_tag},
-                )
-                if "error" in live:
-                    st.error(live["error"])
-                else:
-                    destino = live.get("destination", {})
-                    st.subheader(
-                        f"Opciones live para {destino.get('city', selected_slug)} ({destino.get('iata', '-')})"
-                    )
-                    st.caption(
-                        f"Mes: {destino.get('month', '-')}, duración: {destino.get('trip_duration_days', '-')} días"
-                    )
-
-                    st.markdown("#### Top 3 vuelos (mejor opción)")
-                    flights = live.get("flights_top3", [])
-                    if not flights:
-                        st.info("No se encontraron vuelos live para el filtro actual.")
-                    for idx, f in enumerate(flights, start=1):
-                        st.markdown(
-                            f"{idx}. **{f.get('price_eur', 'N/A')} EUR** · "
-                            f"{f.get('duration_min', 'N/A')} min · "
-                            f"{f.get('stops', 'N/A')} escalas"
-                        )
-
-        else:
-            st.info("No pude extraer destinos de la salida CLIPS para mostrar botones.")
+    st.markdown("### 🧠 CLIPS recommendations")
+    clips_output = obtener_salida_clips(
+        preferences_json,
+        _config_params={"modo": source_tag},
+    )
+    render_clips_output_elegant(clips_output)
 
 
 @st.cache_data(show_spinner="Analizando imagen con IA...")
@@ -402,8 +419,9 @@ def seccion_modo_texto():
         st.session_state.messages = []
 
     for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+        if message.get("role") == "user":
+            with st.chat_message("user"):
+                st.markdown(message["content"])
 
     user_text = st.text_area(
         label="¿Cómo imaginas tu viaje perfecto?",
@@ -429,10 +447,12 @@ def seccion_modo_texto():
                     user_text,
                     _config_params={"modo": "libre"},
                 )
-                st.markdown(respuesta)
                 st.session_state.ultima_respuesta_texto = respuesta
-
-            st.session_state.messages.append({"role": "assistant", "content": respuesta})
+                clips_output = obtener_salida_clips(
+                    respuesta,
+                    _config_params={"modo": "texto"},
+                )
+                placeholder.empty()
 
     if st.session_state.ultima_respuesta_texto:
         render_clips_and_live_block(st.session_state.ultima_respuesta_texto, "texto")
@@ -477,12 +497,11 @@ def seccion_modo_imagen():
             )
     if st.session_state.respuesta_ia_imagen:
         st.success("Analisis completado")
-        st.code(st.session_state.respuesta_ia_imagen, language="json")
         render_clips_and_live_block(st.session_state.respuesta_ia_imagen, "imagen")
 
 def seccion_ia():
     """Maneja la sección de IA con modos libre y detallado."""
-    st.subheader("🤖 Describe tu viaje ideal")
+    st.subheader("Describe tu viaje ideal")
     st.caption("Cuéntanos qué quieres y nuestra IA encontrará el destino perfecto para ti")
 
     inicializar_sesion()
