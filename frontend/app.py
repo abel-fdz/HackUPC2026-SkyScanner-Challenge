@@ -3,8 +3,10 @@ import streamlit.components.v1 as components
 import sys
 import re
 import html
+import unicodedata
 from pathlib import Path
 from datetime import date, timedelta
+import pandas as pd
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
@@ -22,18 +24,18 @@ from backend.app import (
 # ============================================================================
 
 AEROPUERTOS = [
-    "Barcelona (BCN)", "Madrid (MAD)", "Londres (LHR)", "París (CDG)",
-    "Roma (FCO)", "Ámsterdam (AMS)", "Berlín (BER)", "Lisboa (LIS)",
-    "Nueva York (JFK)", "Tokio (NRT)", "Dubai (DXB)", "Cancún (CUN)"
+    "Barcelona (BCN)", "Madrid (MAD)", "London (LHR)", "Paris (CDG)",
+    "Rome (FCO)", "Amsterdam (AMS)", "Berlin (BER)", "Lisbon (LIS)",
+    "New York (JFK)", "Tokyo (NRT)", "Dubai (DXB)", "Cancun (CUN)"
 ]
 
 DESTINOS_DESTACADOS = [
-    {"emoji": "🗼", "ciudad": "París",     "precio": "desde 189€", "desc": "La ciudad del amor"},
-    {"emoji": "🏖️", "ciudad": "Bali",      "precio": "desde 620€", "desc": "Paraíso tropical"},
-    {"emoji": "🗽", "ciudad": "Nueva York", "precio": "desde 399€", "desc": "La ciudad que nunca duerme"},
-    {"emoji": "🏯", "ciudad": "Tokio",     "precio": "desde 710€", "desc": "Tradición y modernidad"},
-    {"emoji": "🌅", "ciudad": "Santorini", "precio": "desde 240€", "desc": "Vistas al Egeo"},
-    {"emoji": "🎭", "ciudad": "Roma",      "precio": "desde 140€", "desc": "La ciudad eterna"},
+    {"emoji": "🗼", "ciudad": "Paris",     "precio": "from 189€", "desc": "The city of love"},
+    {"emoji": "🏖️", "ciudad": "Bali",      "precio": "from 620€", "desc": "Tropical paradise"},
+    {"emoji": "🗽", "ciudad": "New York",   "precio": "from 399€", "desc": "The city that never sleeps"},
+    {"emoji": "🏯", "ciudad": "Tokyo",     "precio": "from 710€", "desc": "Tradition and modernity"},
+    {"emoji": "🌅", "ciudad": "Santorini", "precio": "from 240€", "desc": "Aegean views"},
+    {"emoji": "🎭", "ciudad": "Rome",      "precio": "from 140€", "desc": "The eternal city"},
 ]
 
 MESES = [
@@ -42,27 +44,29 @@ MESES = [
 ]
 
 TIPOS_VIAJE = [
-    "Solo", "En pareja / Romántico", "Familia con niños",
-    "Grupo de amigos", "Viaje de negocios"
+    "Solo", "Couple / Romantic", "Family with children",
+    "Group of friends", "Business trip"
 ]
 
 CLIMAS = [
-    "Soleado y cálido", "Templado", "Frío / Nieve",
-    "Tropical", "Seco / Desértico", "Sin preferencia"
+    "Sunny and warm", "Mild", "Cold / Snow",
+    "Tropical", "Dry / Desert", "No preference"
 ]
 
+INSTANCES_PATH = PROJECT_ROOT / "2_instancias.clp"
+
 TIPOS_DESTINO = [
-    "🏖️ Playa", "🏔️ Montaña", "🏙️ Gran metrópoli", "🏛️ Cultural / Museos",
-    "🎉 Fiesta / Nightlife", "🧗 Aventura / Deporte", "🏰 Histórico"
+    "🏖️ Beach", "🏔️ Mountain", "🏙️ Big city", "🏛️ Culture / Museums",
+    "🎉 Party / Nightlife", "🧗 Adventure / Sports", "🏰 Historic"
 ]
 
 COLORES_CLIMA = {
-    "Soleado y cálido":   ("linear-gradient(to bottom, #FFDAB9, #FFA07A, #FF6347)"),
-    "Templado":           ("linear-gradient(to bottom, #d4f1c4, #89c96e, #4a9e3f)"),
-    "Frío / Nieve":       ("linear-gradient(to bottom, #e8f4fd, #b8d9f0, #7ab8e8)"),
+    "Sunny and warm":     ("linear-gradient(to bottom, #FFDAB9, #FFA07A, #FF6347)"),
+    "Mild":               ("linear-gradient(to bottom, #d4f1c4, #89c96e, #4a9e3f)"),
+    "Cold / Snow":        ("linear-gradient(to bottom, #e8f4fd, #b8d9f0, #7ab8e8)"),
     "Tropical":           ("linear-gradient(to bottom, #c8f5a0, #40c0a0, #0077b6)"),
-    "Seco / Desértico":   ("linear-gradient(to bottom, #f5e6c8, #e0b96e, #c47a2a)"),
-    "Sin preferencia":    ("linear-gradient(to bottom, #0d1b2e, #0d2137, #0d2840)"),
+    "Dry / Desert":       ("linear-gradient(to bottom, #f5e6c8, #e0b96e, #c47a2a)"),
+    "No preference":      ("linear-gradient(to bottom, #0d1b2e, #0d2137, #0d2840)"),
 }
 
 
@@ -72,7 +76,7 @@ COLORES_CLIMA = {
 
 def configurar_pagina():
     """Configura los parámetros básicos de la página Streamlit."""
-    st.set_page_config(page_title="SkyScanner Dream Destiny", page_icon="✈️", layout="centered")
+    st.set_page_config(page_title="SkyScanner Dream Destiny", page_icon="✈️", layout="wide")
     st.markdown("""
         <style>
         /* Fondo de la aplicación principal */
@@ -102,10 +106,21 @@ def configurar_pagina():
         """, unsafe_allow_html=True)
     
 
-def aplicar_estilos(clima="Sin preferencia"):
-    gradiente = COLORES_CLIMA.get(clima, COLORES_CLIMA["Sin preferencia"])
+def aplicar_estilos(clima="No preference"):
+    gradiente = COLORES_CLIMA.get(clima, COLORES_CLIMA["No preference"])
     st.markdown(f"""
         <style>
+        .block-container {{
+            max-width: 77rem !important;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            padding-top: 1rem !important;
+        }}
+        .recommendations-wrap {{
+            max-width: 920px;
+            margin-left: auto;
+            margin-right: auto;
+        }}
         .stApp {{
             background: {gradiente};
         }}
@@ -250,24 +265,24 @@ def st_airplanes():
     </script>
     """, height=0)
 
-@st.cache_data(show_spinner="Consultando a nuestro experto...")
+@st.cache_data(show_spinner="Listening deeply to your dreams, so your journey can find you...")
 def obtener_respuesta_ia(texto_usuario, _config_params=None):
     # _config_params permite invalidar cache cuando cambie configuración relevante.
     try:
         respuesta = generar_respuesta_chatbot(texto_usuario)
         if "429" in respuesta or "cuota disponible" in respuesta.lower():
-            return "Lo siento, la IA esta temporalmente en limite de cuota. Intentalo de nuevo en un minuto."
+            return "Sorry, the AI is temporarily rate-limited. Please try again in a minute."
         return respuesta
     except Exception as exc:
-        return f"Error inesperado al consultar la IA: {exc}"
+        return f"Unexpected error while querying the AI: {exc}"
 
 
-@st.cache_data(show_spinner="Ejecutando motor CLIPS...")
+@st.cache_data(show_spinner="Running CLIPS engine...")
 def obtener_salida_clips(preferences_json, _config_params=None):
     try:
         return generar_recomendacion_clips_desde_json(preferences_json)
     except Exception as exc:
-        return f"Error inesperado al ejecutar CLIPS: {exc}"
+        return f"Unexpected error while running CLIPS: {exc}"
 
 
 def render_clips_output_elegant(clips_output: str):
@@ -284,32 +299,36 @@ def render_clips_output_elegant(clips_output: str):
         if not re.fullmatch(r"[=\-]{8,}", ln)
     ]
     if not lines:
-        st.info("CLIPS no devolvió contenido.")
+        st.info("CLIPS returned no content.")
         return
 
     title = lines[0]
     body_lines = lines[1:]
 
-    st.markdown(f"### {title}")
+    st.markdown(
+        f"<h2 style='font-size: 3.0rem; line-height: 1.12; margin: 0.2rem 0 0.65rem 0; font-weight: 800;'>{html.escape(title)}</h2>",
+        unsafe_allow_html=True,
+    )
     if not body_lines:
         return
 
-    def _render_tag_balls(items: list[str], tone: str):
-        if not items:
+    def _render_tag_balls_combined(good_items: list[str], bad_items: list[str]):
+        paired = [("good", it) for it in good_items] + [("bad", it) for it in bad_items]
+        if not paired:
             return
-        bg = "#dcfce7" if tone == "good" else "#fee2e2"
-        fg = "#166534" if tone == "good" else "#991b1b"
-        border = "#86efac" if tone == "good" else "#fca5a5"
-        chips = "".join(
-            f"<span style='display:inline-block; margin:0 8px 8px 0; padding:6px 12px; "
-            f"border-radius:999px; background:{bg}; color:{fg}; border:1px solid {border}; "
-            f"font-size:0.86rem; white-space:nowrap;'>{html.escape(it)}</span>"
-            for it in items
-        )
+        chips = ""
+        for tone, item in paired:
+            bg = "#dcfce7" if tone == "good" else "#fee2e2"
+            fg = "#166534" if tone == "good" else "#991b1b"
+            border = "#86efac" if tone == "good" else "#fca5a5"
+            chips += (
+                f"<span style='display:inline-block; margin:0 8px 8px 0; padding:6px 12px; "
+                f"border-radius:999px; background:{bg}; color:{fg}; border:1px solid {border}; "
+                f"font-size:0.86rem; white-space:nowrap;'>{html.escape(item)}</span>"
+            )
         st.markdown(f"<div style='margin: 0.15rem 0 0.35rem 0;'>{chips}</div>", unsafe_allow_html=True)
 
-    # Group lines by destination block so we can force:
-    # advantages row first, disadvantages row second.
+    # Group lines by destination block to render each destination together.
     blocks = []
     current = []
     for line in body_lines:
@@ -327,7 +346,11 @@ def render_clips_output_elegant(clips_output: str):
     for block in blocks:
         header = block[0] if block else ""
         if header and re.match(r"^\d+\.\s+", header):
-            st.markdown(f"#### 🟠 **{html.escape(header)}**")
+            st.markdown(
+                f"<p style='margin: 0.62rem 0 0.42rem; font-size: 1.36rem; line-height: 1.35; font-weight: 800;'>"
+                f"{html.escape(header)}</p>",
+                unsafe_allow_html=True,
+            )
 
         normal_lines = []
         advantages_items = []
@@ -354,37 +377,130 @@ def render_clips_output_elegant(clips_output: str):
                 normal_lines.append(line)
 
         for line in normal_lines:
-            st.markdown(f"<p style='margin: 0.2rem 0;'>{html.escape(line)}</p>", unsafe_allow_html=True)
+            st.markdown(
+                f"<p style='margin: 0.32rem 0; font-size: 1.05rem; line-height: 1.55;'>"
+                f"{html.escape(line)}</p>",
+                unsafe_allow_html=True,
+            )
 
-        # Requested order: all advantages first, disadvantages below.
-        _render_tag_balls(advantages_items, "good")
-        _render_tag_balls(disadvantages_items, "bad")
+        # Requested: all tags in one single row, keeping each tag color.
+        _render_tag_balls_combined(advantages_items, disadvantages_items)
+
+
+def _normalize_text(value: str) -> str:
+    txt = unicodedata.normalize("NFKD", value)
+    txt = "".join(ch for ch in txt if not unicodedata.combining(ch))
+    return txt.strip().lower()
+
+
+@st.cache_data(show_spinner=False)
+def _load_location_index():
+    """
+    Carga un índice de países/destinos con coordenadas desde 2_instancias.clp.
+    """
+    if not INSTANCES_PATH.exists():
+        return {}
+
+    raw = INSTANCES_PATH.read_text(encoding="utf-8", errors="ignore")
+    pattern = re.compile(
+        r"\(\[loc-[^\]]+\] of Location\s*"
+        r"\n\s*\(latitude ([^)]+)\)\s*"
+        r"\n\s*\(longitude ([^)]+)\)\s*"
+        r"\n\s*\(continent [^)]+\)\s*"
+        r"\n\s*\(country \"([^\"]+)\"\)",
+        re.MULTILINE,
+    )
+
+    index = {}
+    for match in pattern.finditer(raw):
+        lat = float(match.group(1))
+        lon = float(match.group(2))
+        country = match.group(3)
+        index[_normalize_text(country)] = {"name": country, "lat": lat, "lon": lon}
+    return index
+
+
+def _extract_top_destination_names(clips_output: str):
+    """
+    Extrae destinos del TOP amb format flexible.
+    """
+    names = []
+    for line in clips_output.splitlines():
+        line = line.strip()
+        if not re.match(r"^\d+\.\s+", line):
+            continue
+
+        # Treure prefix "1. "
+        candidate = re.sub(r"^\d+\.\s+", "", line).strip()
+
+        # Retallar pel començament del bloc de grade si existeix.
+        candidate = re.split(r"\s+\*{1,3}\s*", candidate, maxsplit=1)[0].strip()
+        candidate = re.split(r"\s+NOT SUITABLE\b", candidate, maxsplit=1)[0].strip()
+
+        # Treure codi oferta entre claudators.
+        candidate = re.sub(r"\s*\[offer-[^\]]+\]\s*", " ", candidate, flags=re.IGNORECASE).strip()
+
+        # Treure el mes al final si apareix com "(JAN)" etc.
+        candidate = re.sub(r"\s+\([A-Z]{3}\)\s*$", "", candidate).strip()
+
+        if candidate:
+            names.append(candidate)
+    return names
+
+
+def render_recommendations_map(clips_output: str):
+    names = _extract_top_destination_names(clips_output)
+    if not names:
+        st.info("Could not extract destination names from the TOP list to plot the map.")
+        return
+
+    loc_index = _load_location_index()
+    rows = []
+    for name in names:
+        hit = loc_index.get(_normalize_text(name))
+        if hit:
+            rows.append({"Destination": hit["name"], "lat": hit["lat"], "lon": hit["lon"]})
+
+    if not rows:
+        st.info("TOP destinations were found, but they could not be mapped to coordinates.")
+        return
+
+    st.markdown("### 🗺️ Recommended destinations map")
+    st.caption("Pins for destinations that appear in the top recommendations.")
+
+    df = pd.DataFrame(rows)
+    st.map(df, latitude="lat", longitude="lon")
 
 
 def render_clips_and_live_block(preferences_json: str, source_tag: str):
-    st.markdown("### 🧠 CLIPS recommendations")
+    st.markdown('<div class="recommendations-wrap">', unsafe_allow_html=True)
     clips_output = obtener_salida_clips(
         preferences_json,
         _config_params={"modo": source_tag},
     )
     render_clips_output_elegant(clips_output)
+    render_recommendations_map(clips_output)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 
-@st.cache_data(show_spinner="Analizando imagen con IA...")
+@st.cache_data(show_spinner="Analyzing image with AI...")
 def obtener_respuesta_ia_imagen(image_bytes, mime_type, texto_usuario="", _config_params=None):
     try:
         respuesta = generar_respuesta_imagen_chatbot(image_bytes, mime_type, texto_usuario)
         if "429" in respuesta or "cuota disponible" in respuesta.lower():
-            return "Lo siento, la IA esta temporalmente en limite de cuota. Intentalo de nuevo en un minuto."
+            return "Sorry, the AI is temporarily rate-limited. Please try again in a minute."
         return respuesta
     except Exception as exc:
-        return f"Error inesperado al analizar la imagen: {exc}"
+        return f"Unexpected error while analyzing the image: {exc}"
 
 
 def mostrar_cabecera():
     """Muestra el encabezado de la página."""
-    st.title("✈️ SkyScanner Dream Destiny")
-    st.caption("Encuentra el viaje perfecto según tus sueños")
+    st.markdown(
+        "<h1 style='font-size:4.0rem; line-height: 1.1; margin-bottom: 0.2rem;'>✈️ SkyScanner Dream Destiny</h1>",
+        unsafe_allow_html=True,
+    )
+    st.caption("Find the perfect trip based on your dreams")
     st.divider()
 
 
@@ -406,10 +522,10 @@ def mostrar_selector_modo():
     """Muestra los botones para seleccionar modo texto o imagen."""
     col_btn1, col_btn2 = st.columns(2)
     with col_btn1:
-        if st.button("✏️ Modo texto", use_container_width=True):
+        if st.button("✏️ Text mode", use_container_width=True):
             st.session_state.modo_detallado = False
     with col_btn2:
-        if st.button("📸 Modo imagen", use_container_width=True):
+        if st.button("📸 Image mode", use_container_width=True):
             st.session_state.modo_detallado = True
 
 
@@ -424,67 +540,65 @@ def seccion_modo_texto():
                 st.markdown(message["content"])
 
     user_text = st.text_area(
-        label="¿Cómo imaginas tu viaje perfecto?",
+        label="How do you imagine your perfect trip?",
         placeholder=(
-            "Ej: Quiero un viaje de 10 días con mi pareja, me gustan las playas "
-            "tranquilas, la buena comida y no quiero gastar más de 2000 EUR por persona..."
+            "Example: I want a 10-day trip with my partner, I like peaceful beaches, "
+            "great food, and I do not want to spend more than 2000 EUR per person..."
         ),
         height=200,
     )
-    if st.button("✨ Encontrar mi destino ideal"):
+    _, submit_col = st.columns([3, 1])
+    with submit_col:
+        trigger_text_mode = st.button("✨ Find my ideal destination", use_container_width=True)
+    if trigger_text_mode:
         if not user_text.strip():
-            st.warning("Cuéntanos algo sobre tu viaje ideal primero.")
+            st.warning("Tell us something about your ideal trip first.")
         else:
             st.session_state.messages.append({"role": "user", "content": user_text})
             with st.chat_message("user"):
                 st.markdown(user_text)
 
-            with st.chat_message("assistant"):
-                placeholder = st.empty()
-                with placeholder.container():
-                    st_airplanes()
-                respuesta = obtener_respuesta_ia(
-                    user_text,
-                    _config_params={"modo": "libre"},
-                )
-                st.session_state.ultima_respuesta_texto = respuesta
-                clips_output = obtener_salida_clips(
-                    respuesta,
-                    _config_params={"modo": "texto"},
-                )
-                placeholder.empty()
+            placeholder = st.empty()
+            with placeholder.container():
+                st_airplanes()
+            respuesta = obtener_respuesta_ia(
+                user_text,
+                _config_params={"modo": "libre"},
+            )
+            st.session_state.ultima_respuesta_texto = respuesta
+            clips_output = obtener_salida_clips(
+                respuesta,
+                _config_params={"modo": "texto"},
+            )
+            placeholder.empty()
 
     if st.session_state.ultima_respuesta_texto:
         render_clips_and_live_block(st.session_state.ultima_respuesta_texto, "texto")
-
-    if st.button("🗑️ Limpiar conversación"):
-        st.session_state.messages = []
-        st.rerun()
-
-
-
 
 def seccion_modo_imagen():
     """Muestra la sección del modo imagen."""
     st.write("")
     imagen = st.file_uploader(
-        "📸 Sube una imagen que inspire tu viaje",
+        "📸 Upload an image that inspires your trip",
         type=["jpg", "jpeg", "png", "webp"]
     )
 
     if imagen:
-        st.image(imagen, caption="Tu imagen de inspiración", use_container_width=True)
+        st.image(imagen, caption="Your inspiration image", use_container_width=True)
 
     texto_contexto = st.text_area(
-        "Contexto opcional para la IA (qué te inspira de la imagen)",
-        placeholder="Ej: Quiero un destino con este estilo, relajado y no muy caro.",
+        "Optional context for AI (what inspires you from the image)",
+        placeholder="Example: I want a destination with this style, relaxing and not too expensive.",
         height=100,
         key="imagen_contexto_texto",
     )
 
-    if st.button("✨ Encontrar mi destino ideal"):
+    _, submit_col = st.columns([3, 1])
+    with submit_col:
+        trigger_image_mode = st.button("✨ Find my ideal destination", use_container_width=True)
+    if trigger_image_mode:
         if not imagen:
-            st.warning("Sube una imagen primero.")
+            st.warning("Upload an image first.")
         else:
             placeholder = st.empty()
             with placeholder.container():
@@ -496,13 +610,13 @@ def seccion_modo_imagen():
                 _config_params={"modo": "imagen"},
             )
     if st.session_state.respuesta_ia_imagen:
-        st.success("Analisis completado")
+        st.success("Analysis completed")
         render_clips_and_live_block(st.session_state.respuesta_ia_imagen, "imagen")
 
 def seccion_ia():
     """Maneja la sección de IA con modos libre y detallado."""
-    st.subheader("Describe tu viaje ideal")
-    st.caption("Cuéntanos qué quieres y nuestra IA encontrará el destino perfecto para ti")
+    st.subheader("Describe your ideal trip")
+    st.caption("Tell us what you want and our AI will find the perfect destination for you")
 
     inicializar_sesion()
     mostrar_selector_modo()
@@ -524,7 +638,7 @@ def main():
     """Función principal que coordina la ejecución de la aplicación."""
     configurar_pagina()
     inicializar_sesion()
-    clima_actual = st.session_state.get("clima_seleccionado", "Sin preferencia")
+    clima_actual = st.session_state.get("clima_seleccionado", "No preference")
     aplicar_estilos(clima_actual)
 
     mostrar_cabecera()
